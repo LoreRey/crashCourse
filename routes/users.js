@@ -61,11 +61,11 @@ router.post("/register", (req, res) => {
   if(!req.body.email || !req.body.password) {
     res.status(400).send('Required e-mail and password!')}
 
-  let firstname = req.body.first_name
-  let lastname = req.body.last_name
-  let username = req.body.username
-  let email = req.body.email
-  let password = bcrypt.hashSync(req.body.password)
+  let firstname = req.body.first_name;
+  let lastname = req.body.last_name;
+  let username = req.body.username;
+  let email = req.body.email;
+  let password = bcrypt.hashSync(req.body.password);
   let newUser = {
     first_name: firstname,
     last_name: lastname,
@@ -84,10 +84,6 @@ router.get("/profile"), (req, res) => {
 }
 
   }
-
-
-
-
 
 
 
