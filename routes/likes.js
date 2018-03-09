@@ -7,7 +7,7 @@ module.exports = (knex) => {
 
 //CREATES A LIKE
 router.post('/:article_id', (req, res) => {
-  let liked = {user_id = req.session.user,
+  let liked = {user_id : req.session.user,
                article_id: req.params.article_id
               }
 
