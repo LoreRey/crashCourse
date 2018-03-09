@@ -60,7 +60,6 @@ exports.seed = function(knex, Promise) {
                                   user_id: 3,
                                   comment_text: "wut..."
                                 }
-
         ])
       ]);
     });
