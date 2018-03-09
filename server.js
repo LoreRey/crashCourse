@@ -46,7 +46,7 @@ app.use("/api/comments", commentRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("index");
+  res.render("Register");
 });
 
 app.listen(PORT, () => {
