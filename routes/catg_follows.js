@@ -5,11 +5,12 @@ const router  = express.Router();
 
 module.exports = (knex) => {
 
-router.post("/:category" , (req, res) => {
+//router.post("/:category" , (req, res) => {
 
 
 
 
-  return router
 
-}
+  //return router
+
+//}

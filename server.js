@@ -37,6 +37,9 @@ app.use(express.static("public"));
 
 // Mount all resource routes
 app.use("/api/users", usersRoutes(knex));
+app.use("/api/articles", articlesRoutes(knex));
+app.use("/api/likes", likeRoutes(knex));
+app.use("/api/comments", commentRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {

@@ -16,7 +16,7 @@ router.get("/", (req, res) => {
       .where('id', req.session.user)
       .then((result) => {
         res.json(result)
-      }
+      });
 });
 
 
@@ -29,7 +29,7 @@ router.post("/login", (req, res) => {
     res.status(403).send('Must enter a valid username and password')
   }
 
-  *knex('users')
+  knex('users')
       .select('id', 'first_name', 'password')
       .where({'email' : reqEmail})
       .then(function(result) {
@@ -62,15 +62,17 @@ router.get("/register", (req, res) => {
   res.render("register");
 });
 
-
 //REGISTER NEW USER
 router.post("/register", (req, res) => {
   if(!req.body.first_name || req.body.last_name) {
-    res.status(400).send('You must provide first and last name.')}
+    res.status(400).send('You must provide first and last name.')
+  }
   if(!req.body.username) {
-    res.status(400).send('You must provide a username.')}
+    res.status(400).send('You must provide a username.')
+  }
   if(!req.body.email || !req.body.password) {
-    res.status(400).send('Required e-mail and password!')}
+    res.status(400).send('Required e-mail and password!')
+  }
 
   let firstname = req.body.first_name;
   let lastname = req.body.last_name;
@@ -83,7 +85,8 @@ router.post("/register", (req, res) => {
     username: username,
     email: email,
     password: password
-  }
+
+  };
 
   knex('users')
      .insert(newUser)
@@ -93,6 +96,7 @@ router.post("/register", (req, res) => {
       req.session.name = result[0].first_name
       res.status(200).redirect('/articles')
      });
+
 
 
 //PROFILE PAGE
@@ -107,4 +111,5 @@ router.get("/profile", (req, res) => {
 
 
  return router;
-}
+
+};
