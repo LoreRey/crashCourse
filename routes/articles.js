@@ -10,11 +10,12 @@ module.exports = (knex) => {
 
 
   //SEE ALL AVAILABLE ARTICLES
-  router.get("/articles", (req, res) => {
+  router.get("/", (req, res) => {
     knex.select("*")
         .from('articles')
-        .orderBy('created_at', 'desc')
+        // .orderBy('created_at', 'desc')
         .then((results) => {
+          console.log(results)
           res.json(results);
         });
 
