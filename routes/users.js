@@ -3,19 +3,21 @@
 const express = require('express');
 const router  = express.Router();
 const bcrypt = require('bcrypt');
+const cookieSession = require('cookie-session');
+const bodyParser = require("body-parser");
+
 
 module.exports = (knex) => {
 
 //GET USER
-  router.get("/", (req, res) => {
-    knex
-      .select("*")
-      .from("users")
-      .where(...)
-      .then((results) => {
-        res.json(results);
-    });
-  });
+router.get("/", (req, res) => {
+  knex.select('id', 'first_name')
+      .from('users')
+      .where('id', req.session.user)
+      .then((result) => {
+        res.json(result)
+      }
+});
 
 
 //LOGIN
@@ -23,25 +25,34 @@ router.post("/login", (req, res) => {
   let reqEmail = req.body.email
   let reqPass = req.body.password
 
-  if(!reqEmail || !passwordReq) {
+  if(!reqEmail || !reqPass) {
     res.status(403).send('Must enter a valid username and password')
   }
 
-  knex('users')
-  .select(...)
-  .where(...)
-  ...
+  *knex('users')
+      .select('id', 'first_name', 'password')
+      .where({'email' : reqEmail})
+      .then(function(result) {
 
-  //****TO IMPLEMENT****//
-  //CHECK IF USER EXISTS
-  //COMPARE PASSWORDS
+   if(!result || !result[0]) {
+      res.status(404).send('User not found.')
+    }
 
+   if(bcrypt.compareSync(reqPass, result[0].password)) {
+      req.session.user = result[0].id
+      req.session.name = result[0].name
+      res.status(200).redirect("/articles")
+    } else {
+      res.status(401).send('Not authorized')
+    }
+ });
 });
 
 
 //LOGOUT
 router.post("/logout", (req, res) => {
   req.session.destroy();
+  console.log("Logout successful.");
   res.redirect("/");
 });
 
@@ -75,16 +86,24 @@ router.post("/register", (req, res) => {
   }
 
   knex('users')
-  .insert(newUser)
-  ...
+     .insert(newUser)
+     .returning(['id', 'first_name'])
+     .then((result) => {
+      req.session.user = result[0].id;
+      req.session.name = result[0].first_name
+      res.status(200).redirect('/articles')
+     });
+
 
 //PROFILE PAGE
-router.get("/profile"), (req, res) => {
-  res.render("profile");
-}
-
-  }
-
+router.get("/profile", (req, res) => {
+  knex.select('first_name', 'last_name', 'email', 'username')
+      .from('users')
+      .where({id: req.session.user_id})
+      .then((results) => {
+        res.render("profile");
+      });
+});
 
 
  return router;
