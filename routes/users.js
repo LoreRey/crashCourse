@@ -66,12 +66,12 @@ module.exports = (knex) => {
 
   //REGISTER NEW USER
   router.post("/register", (req, res) => {
-    if(!req.body.first_name || req.body.last_name) {
+    if(!req.body.first_name || !req.body.last_name) {
       res.status(400).send('You must provide first and last name.')
     }
-    if(!req.body.username) {
-      res.status(400).send('You must provide a username.')
-    }
+    // if(!req.body.username) {
+    //   res.status(400).send('You must provide a username.')
+    // }
     if(!req.body.email || !req.body.password) {
       res.status(400).send('Required e-mail and password!')
     }
@@ -80,7 +80,7 @@ module.exports = (knex) => {
     let lastname = req.body.last_name;
     let username = req.body.username;
     let email = req.body.email;
-    let password = bcrypt.hashSync(req.body.password);
+    let password = req.body.password;
     let newUser = {
       first_name: firstname,
       last_name: lastname,
@@ -92,11 +92,11 @@ module.exports = (knex) => {
 
     knex('users')
        .insert(newUser)
-       .returning(['id', 'first_name'])
+       .returning(['user_id', 'first_name'])
        .then((result) => {
-        req.session.user = result[0].id;
-        req.session.name = result[0].first_name
-        res.status(200).redirect('/articles')
+        // req.session.user = result[0].id;
+        // req.session.name = result[0].first_name
+        res.status(200).redirect('/main')
        });
   });
 

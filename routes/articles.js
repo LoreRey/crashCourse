@@ -15,26 +15,27 @@ module.exports = (knex) => {
         .from('articles')
         // .orderBy('created_at', 'desc')
         .then((results) => {
-          console.log(results)
+          // console.log(results)
           res.json(results);
         });
 
     });
 
   //CREATE A NEW ARTICLE
-  router.post("/articles", (req, res) => {
+  router.post("/", (req, res) => {
     let artURL = req.body.cardURL;
     let artTitle = req.body.artTitle;
     let artDescription = req.body.cardDescription;
-    let artCategory = req.body.artCategory;
-    let artUserId = req.session.userId;
+    let artCategory = req.body.Category;
+    // let artUserId = req.session.userId;
 
     knex('articles')
         .insert({url: artURL,
                 title: artTitle,
                 description: artDescription,
-                category_id: artCategory,
-                user_id: artUserId})
+                category: artCategory,
+                // user_id: artUserId
+              })
         .then((results) => {
         res.json(results);
         });

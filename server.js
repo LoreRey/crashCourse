@@ -39,15 +39,17 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
-app.use("/api/articles", articlesRoutes(knex));
-app.use("/api/likes", likeRoutes(knex));
-app.use("/api/comments", commentRoutes(knex));
+app.use("/users", usersRoutes(knex));
+app.use("/articles", articlesRoutes(knex));
+app.use("/likes", likeRoutes(knex));
+app.use("/comments", commentRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
   res.render("Register");
 });
+
+
 
 app.get("/main", (req, res) => {
   res.render("Main");
