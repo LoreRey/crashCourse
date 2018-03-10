@@ -41,20 +41,6 @@ module.exports = (knex) => {
         });
   });
 
-  //SAVES ARTICLE TO USER
-  //router.post("/articles/:article_id", (req, res) => {
-  //  let savedArt = {article = req.params.article_id
-  //                  user_id = req.session.user
-  //                 }
-  //  knex('articles')
-  //      .insert(savedArt)
-  //      .where({id: article_id})
-  //      .
-
-
-  //  }
-
-  //});
 
   //UPDATE ARTICLE DETAILS
   router.get("/articles/:article_id", (req, res) => {
@@ -88,10 +74,6 @@ module.exports = (knex) => {
         });
   });
 
-  //FOLLOW AN ARTICLE CATEGORY
-  router.post("/:category" , (req, res) => {
-
-
   //DELETE ARTICLE
   router.delete("/:article_id", (req, res) => {
     knex.select('*')
@@ -99,10 +81,9 @@ module.exports = (knex) => {
         .where("id", req.params.article_id)
         .del()
         .then((results) => {
-         res.json(results)
+         res.json(results);
         });
   });
 
-  });
   return router;
 };

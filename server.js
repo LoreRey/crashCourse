@@ -61,17 +61,17 @@ app.get("/articles/:article_id", (req, res) => {
 
 app.get("/main", (req, res) => {
   let templateVars = {};
-  if (req.session.user_id) {
+  if (req.session.user) {
     knex.select('user_id', 'first_name')
         .from('users')
         .where('user_id', req.session.user)
         .then((result) => {
           templateVars.user = result[0];
           console.log(templateVars);
+          res.render("Main", templateVars);
     });
 
     }
-          res.render("Main", templateVars);
 });
 
 
