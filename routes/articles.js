@@ -13,20 +13,19 @@ module.exports = (knex) => {
 router.get("/articles", (req, res) => {
   knex.select("*"),
       .from('articles')
-      .orderBy('created_at', 'desc')
+      //.orderBy('created_at', 'desc')
       .then((results) => {
         res.json(results);
       });
-
   });
 
 //CREATE A NEW ARTICLE
 router.post("/articles", (req, res) => {
-  let artURL = req.body.cardURL;
-  let artTitle = req.body.artTitle;
-  let artDescription = req.body.cardDescription;
-  let artCategory = req.body.artCategory;
-  let artUserId = req.session.userId;
+  let artURL = req.body.url;
+  let artTitle = req.body.title;
+  let artDescription = req.body.description;
+  let artCategory = req.body.category;
+  let artUserId = req.session.user;
 
   knex('articles')
       .insert({url: artURL,
@@ -39,29 +38,15 @@ router.post("/articles", (req, res) => {
       });
 });
 
-//SAVES ARTICLE TO USER
-//router.post("/articles/:article_id", (req, res) => {
-//  let savedArt = {article = req.params.article_id
-//                  user_id = req.session.user
-//                 }
-//  knex('articles')
-//      .insert(savedArt)
-//      .where({id: article_id})
-//      .
-
-
-//  }
-
-//});
 
 //UPDATE ARTICLE DETAILS
 router.get("/articles/:article_id", (req, res) => {
   let article_id = req.params.article_id;
-  let artURL = req.body.cardURL;
-  let artTitle = req.body.artTitle;
-  let artDescription = req.body.cardDescription;
-  let artCategory = req.body.artCategory;
-  let artUserId = req.session.userId;
+  let artURL = req.body.url;
+  let artTitle = req.body.title;
+  let artDescription = req.body.description;
+  let artCategory = req.body.category;
+  let artUserId = req.session.user;
 
   knex('articles')
       .where({id: article_id})
@@ -85,9 +70,6 @@ router.get("/:category" , (req, res) => {
         res.json(results);
       });
 });
-
-//FOLLOW AN ARTICLE CATEGORY
-router.post("/:category" , (req, res) => {
 
 
 //DELETE ARTICLE

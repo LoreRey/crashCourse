@@ -1,3 +1,20 @@
+const ENV         = process.env.ENV || "development";
+const knexConfig  = require("./knexfile");
+const knex   = require("knex")(knexConfig[ENV]);
+
+  knex('follows')
+      .insert({user_id : process.argv[2],
+                category_id : process.argv[3]
+                })
+      .then((results) => {
+        console.log(results);
+      });
+
+
+
+//**************
+
+
 "use strict";
 
 const express = require('express');
@@ -7,53 +24,41 @@ const cookieSession = require('cookie-session');
 const bodyParser = require("body-parser");
 
 
+//****FUNCTIONS****//
+
+function userAuthentication(email, password) {
+  const usersQuery =  knex.select("*").from("users").where({email, password})
+                          .limit(1);
+  const userPromise = usersQuery
+                          .then(users => users[0]);
+    return userPromise;
+}
+
+
 module.exports = (knex) => {
 
-//GET USER
+
 router.get("/", (req, res) => {
-  knex.select('id', 'first_name')
-      .from('users')
-      .where('id', req.session.user)
-      .then((result) => {
-        res.json(result)
-      });
+  //knex.select('id', 'first_name')
+  //    .from('users')
+  //    .where('id', req.session.user)
+  //    .then((result) => {
+  //      res.json(result)
+  //    });
+//});
+
+ if (cookieSession.user_id) {
+      alert('You are already logged in!');
+    } else {
+    let user = request.session.user;
+      response.render('login', {user});
+    }
 });
 
 
 //LOGIN
 router.post("/login", (req, res) => {
-
-  if(cookieSession.user_id){
-    alert('You are already logged in!')
-  } else {
-    let user = req.session.user;
-  res.render('login')
-  }
-
-  let reqEmail = req.body.email
-  let reqPass = req.body.password
-
-  if(!reqEmail || !reqPass) {
-    res.status(403).send('Must enter a valid username and password')
-  }
-
-  knex('users')
-      .select('id', 'first_name', 'password')
-      .where({'email' : reqEmail})
-      .then(function(result) {
-
-   if(!result || !result[0]) {
-      res.status(404).send('User not found.')
-    }
-
-   if(bcrypt.compareSync(reqPass, result[0].password)) {
-      req.session.user = result[0].id
-      res.status(200).redirect("/articles")
-    } else {
-      res.status(401).send('Not authorized')
-    }
- });
-});
+  const userPromise = userAuthentication(req.body.email, req.body.password)
 
 
 //LOGOUT
@@ -86,13 +91,13 @@ router.post("/register", (req, res) => {
   let username = req.body.username;
   let email = req.body.email;
   let password = bcrypt.hashSync(req.body.password);
-  let user_id = req.session.user;
   let newUser = {
     first_name: firstname,
     last_name: lastname,
     username: username,
     email: email,
     password: password
+
   };
 
   knex('users')
@@ -109,7 +114,7 @@ router.post("/register", (req, res) => {
 router.get("/profile", (req, res) => {
   knex.select('first_name', 'last_name', 'email', 'username')
       .from('users')
-      .where({id: req.session.user})
+      .where({id: req.session.user_id})
       .then((results) => {
         res.render("profile");
       });
@@ -119,3 +124,4 @@ router.get("/profile", (req, res) => {
  return router;
 
 };
+
