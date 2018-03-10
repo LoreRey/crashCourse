@@ -1,0 +1,66 @@
+.article h1{
+	text-align: center;
+}
+
+div.dropdown{
+		margin-left: auto;
+}
+
+
+.navRight a{
+	padding-left: 10px;
+}
+
+button.btn.btn-primary {
+	margin-right: 10px;
+}
+
+img{
+	width: 80%;
+    border:transparent;
+    box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.3); 
+    margin-top: 1.00%;
+     border-radius: 4%;
+     display: block;
+       margin-left: auto;
+    margin-right: auto;
+     
+}
+
+div.article{
+	margin-top: 20px;
+	 position: absolute;
+	 left: 420px;
+	 overflow: hidden;
+	 border-color: grey;
+	 border: 1px transparent;
+	 margin-left: auto;
+    margin-right: auto;
+	 width: 500px;
+}
+.article footer{
+ 	position: relative;
+	border-top: 1px solid;
+	border-color: black;
+	margin-top: 3em;
+}
+
+#bottomRight{
+	float: right;
+
+}
+
+span#clickableAwesomeFont{
+	margin-right: 52px;
+
+}
+
+#bottomLeft button{
+	margin-left: 52px;
+	 background:#007bff;
+    border:none;
+    padding:10px;
+    color:white;
+    border-radius:5px;
+    transition:0.3s background;
+}
