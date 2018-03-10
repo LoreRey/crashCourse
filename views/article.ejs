@@ -10,8 +10,10 @@
 
  <body>
     <!-- Navbar -->
-      <nav class="navbar navbar-inverse bg-dark ">
-      <a class="navbar-brand" href="#"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
+   <% include ./partials/navbar %>
+
+     <!--  <nav class="navbar navbar-inverse bg-dark ">
+      <a class="navbar-brand" href="/main"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
 
 
         <div class="dropdown">
@@ -33,7 +35,7 @@
 
 
 
-    </nav>
+    </nav> -->
 
 
         <!-- Article -->
@@ -41,7 +43,7 @@
 
             <article>
                 <h1> <%= article.title %> </h1>
-                <h1> <%= article.contributor %> </h1>
+                <h3>Created by: <%= article.username %> </h3>
                 <img  src="<%=article.image%>"> </img>
 
               <footer>
@@ -63,4 +65,10 @@
             </article>
 
         </div>
+        <div class="comments">
+          <% for (comment of comments) {%>
+            <p><%= comment.comment_text%></p>
+          <% }%>
+        </div>
  </body>
+</html>

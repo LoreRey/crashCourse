@@ -31,6 +31,7 @@ app.use(morgan('dev'));
 app.use(knexLogger(knex));
 
 app.set("view engine", "ejs");
+// app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use("/styles", sass({
   src: __dirname + "/styles",
@@ -56,23 +57,34 @@ app.get("/register", (req, res) => {
   res.render("Register");
 });
 
-app.get("/articles/:article_id",(req,res) =>{
-    let article_id = req.params.article_id;
-    let templateVar ={};
+// app.get("/articles/:article_id",(req,res) =>{
+//     let article_id = req.params.article_id;
+//     let templateVars ={};
 
-     knex('articles')
-     .where({article_id :article_id})
-     .select('*')
-     .then ((result) => {
-         //console.log(result);
-        templateVar.article = result[0];
-        let title = templateVar.title;
-        console.log(title);
-        console.log('blah', templateVar);
+//      knex('articles')
+//      // .innerJoin("comments", "articles.article_id", "comments.article")
+//      .where({article_id :article_id})
+//      .select('*')
+//      .then ((result) => {
+//          //console.log(result);
+//         templateVars.article = result[0];
+//         knex("comments")
+//           .select("*")
+//           .where("article", templateVars.article.article_id)
+//           .then((result) => {
+//             templateVars.comments = [];
+//             for (let comment of result) {
+//               templateVars.comments.push();
+//               console.log(templateVars);
 
-        res.render("article", templateVar);
-     });
-});
+//         res.render("article", templateVars);
+//             }
+//           });
+//         // let title = templateVars.title;
+//         // console.log(title);
+//         // console.log('blah', templateVars);
+//      });
+// });
 
 app.get("/main", (req, res) => {
   let templateVars = {};
@@ -87,6 +99,37 @@ app.get("/main", (req, res) => {
     });
 
     }
+});
+
+//LOGIN
+app.get("/login", (req, res) => {
+ res.render("login")
+});
+
+  //LOGIN
+app.post("/login", (req, res) => {
+
+ console.log(req.body)
+ if(!req.body.email || !req.body.password) {
+   res.status(403).send('Must enter a valid username and password')
+ }
+
+  console.log("hi)")
+  knex('users')
+     .select('email', 'first_name', 'password')
+     .where('email', req.body.email)
+     .then(function(result) {
+
+        if(!result || !result[0]) {
+           res.status(404).send('User not found.')
+        } else if(req.body.password === result[0].password) {
+           req.session.user = result[0].user_id
+           console.log(req.session)
+           res.redirect("/main")
+        } else {
+           res.status(401).send('Not authorized')
+        }
+ });
 });
 
 

@@ -8,6 +8,35 @@ const bodyParser = require("body-parser");
 
 module.exports = (knex) => {
 
+router.get("/:article_id",(req,res) =>{
+    let article_id = req.params.article_id;
+    let templateVars ={};
+
+     knex('articles')
+     .innerJoin("users", "articles.contributor", "users.user_id")
+     .where({article_id :article_id})
+     .select('*')
+     .then ((result) => {
+         //console.log(result);
+        templateVars.article = result[0];
+        knex("comments")
+          .select("*")
+          .where("article", templateVars.article.article_id)
+          .then((result) => {
+            // console.log(result)
+            templateVars.comments = [];
+            for (let comment of result) {
+              // console.log(comment)
+              templateVars.comments.push(comment);
+
+            }
+            console.log(templateVars);
+            res.render("article", templateVars);
+          });
+
+     });
+});
+
 
   //SEE ALL AVAILABLE ARTICLES
   router.get("/", (req, res) => {

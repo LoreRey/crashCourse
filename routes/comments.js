@@ -25,14 +25,14 @@ module.exports = (knex) => {
   });
 
   //RENDERS ARTICLE COMMENTS
-  router.get("/articles/:article_id/comments", (req, res) => {
-    knex.select('*')
-        .from('comments')
-        .where('article_id', req.params.article_id)
-        .then((results) => {
-          res.json(results)
-        });
-  })
+  // router.get("/articles/:article_id/comments", (req, res) => {
+  //   knex.select('*')
+  //       .from('comments')
+  //       .where('article_id', req.params.article_id)
+  //       .then((results) => {
+  //         res.json(results)
+  //       });
+  // })
 
   return router
 
