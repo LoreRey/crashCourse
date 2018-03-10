@@ -64,8 +64,8 @@ router.get("/articles/:article_id", (req, res) => {
 router.get("/:category" , (req, res) => {
   knex.select('*')
       .from('articles')
-      .where('category', req.params.category)
-      .orderBy('created_at', 'desc')
+      .where({'category' : req.params.category})
+      //.orderBy('created_at', 'desc')
       .then((results) => {
         res.json(results);
       });
@@ -76,7 +76,7 @@ router.get("/:category" , (req, res) => {
 router.delete("/:article_id", (req, res) => {
   knex.select('*')
       .from("articles")
-      .where("id", req.params.article_id)
+      .where({"user_id" : req.params.article_id})
       .del()
       .then((results) => {
        res.json(results)

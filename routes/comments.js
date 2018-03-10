@@ -28,7 +28,7 @@ router.post("/articles/:article_id/comments", (req, res) => {
 router.get("/articles/:article_id/comments", (req, res) => {
   knex.select('*')
       .from('comments')
-      .where('article_id', req.params.article_id)
+      .where({'article_id' : req.params.article_id})
       .then((results) => {
         res.json(results)
       });

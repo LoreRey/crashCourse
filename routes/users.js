@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 //LOGIN
 router.post("/login", (req, res) => {
 
-  if(cookieSession.user_id){
+  if(req.session.user){
     alert('You are already logged in!')
   } else {
     let user = req.session.user;

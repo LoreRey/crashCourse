@@ -22,8 +22,8 @@ router.post('/:article_id', (req, res) => {
 //DELETES A LIKE
 router.delete('/:article_id', (req, res) => {
   knex('likes')
-      .where('username', req.session.user)
-      .andWhere('article_id, req.params.article_id')
+      .where({'user_id' : req.session.user,
+             'article_id' : req.params.article_id})
       .del()
       .then((results) => {
        res.json(results)
