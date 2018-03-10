@@ -60,18 +60,18 @@ module.exports = (knex) => {
 
 
   //GET TO REGISTRATION PAGE
-  router.get("/register", (req, res) => {
-    res.render("register");
-  });
+  // router.get("/users/register", (req, res) => {
+  //   res.render("register");
+  // });
 
   //REGISTER NEW USER
   router.post("/register", (req, res) => {
     if(!req.body.first_name || !req.body.last_name) {
       res.status(400).send('You must provide first and last name.')
     }
-    // if(!req.body.username) {
-    //   res.status(400).send('You must provide a username.')
-    // }
+    if(!req.body.username) {
+      res.status(400).send('You must provide a username.')
+    }
     if(!req.body.email || !req.body.password) {
       res.status(400).send('Required e-mail and password!')
     }
@@ -94,8 +94,8 @@ module.exports = (knex) => {
        .insert(newUser)
        .returning(['user_id', 'first_name'])
        .then((result) => {
-        // req.session.user = result[0].id;
-        // req.session.name = result[0].first_name
+        req.session.user = result[0].user_id;
+        req.session.name = result[0].first_name
         res.status(200).redirect('/main')
        });
   });

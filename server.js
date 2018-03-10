@@ -13,6 +13,7 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const cookieSession = require("cookie-session");
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -38,6 +39,11 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+app.use(cookieSession({
+  name: "user_id",
+  secret: "fdafasfdas"
+}));
+
 // Mount all resource routes
 app.use("/users", usersRoutes(knex));
 app.use("/articles", articlesRoutes(knex));
@@ -45,15 +51,29 @@ app.use("/likes", likeRoutes(knex));
 app.use("/comments", commentRoutes(knex));
 
 // Home page
-app.get("/", (req, res) => {
+app.get("/register", (req, res) => {
   res.render("Register");
 });
 
-
+app.get("/articles/:article_id", (req, res) => {
+  res.render("article")
+})
 
 app.get("/main", (req, res) => {
-  res.render("Main");
-})
+  let templateVars = {};
+  if (req.session.user_id) {
+    knex.select('user_id', 'first_name')
+        .from('users')
+        .where('user_id', req.session.user)
+        .then((result) => {
+          templateVars.user = result[0];
+          console.log(templateVars);
+    });
+
+    }
+          res.render("Main", templateVars);
+});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
