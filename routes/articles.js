@@ -68,7 +68,7 @@ module.exports = (knex) => {
     knex.select('*')
         .from('articles')
         .where('category', req.params.category)
-        .orderBy('created_at', 'desc')
+        //.orderBy('created_at', 'desc')
         .then((results) => {
           res.json(results);
         });
