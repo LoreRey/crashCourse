@@ -8,6 +8,7 @@ const express     = require("express");
 const bodyParser  = require("body-parser");
 const sass        = require("node-sass-middleware");
 const app         = express();
+const router      = express.Router();
 
 const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
@@ -21,6 +22,7 @@ const usersRoutes = require("./routes/users");
 const articlesRoutes = require("./routes/articles");
 const likeRoutes = require("./routes/likes");
 const commentRoutes = require("./routes/comments");
+const followsRoutes = require("./routes/catg_follows");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -46,10 +48,12 @@ app.use(cookieSession({
 }));
 
 // Mount all resource routes
-app.use("/users", usersRoutes(knex));
-app.use("/articles", articlesRoutes(knex));
-app.use("/likes", likeRoutes(knex));
-app.use("/comments", commentRoutes(knex));
+app.use("/articles", () => articlesRoutes(router, knex));
+app.use("/likes", () => likeRoutes(router, knex));
+app.use("/comments", () => commentRoutes(router, knex));
+app.use("/catg_follows", () => followsRoutes(router, knex));
+
+app.use(usersRoutes(router, knex));
 
 // Home page
 app.get("/register", (req, res) => {
@@ -85,9 +89,9 @@ app.get("/main", (req, res) => {
           console.log(templateVars);
           res.render("Main", templateVars);
     });
-
-    }
+  }
 });
+
 
 
 app.listen(PORT, () => {

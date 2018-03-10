@@ -7,21 +7,22 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Normalize the page -->
-    <link rel="stylesheet" href="../public/vendor/normalize-4.1.1.css" type="text/css" />
+    <link rel="stylesheet" href="./vendor/normalize-4.1.1.css" type="text/css" />
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
    <!-- Input local css file -->
-    <link rel="stylesheet" type="text/css" href="../styles/login.css"> 
+    <link rel="stylesheet" type="text/css" href="../styles/login.css">
 
       <!-- Optional JavaScript & Local Jquery -->
+      <script type="text/javascript" src="./vendor/jquery-3.0.0.js"></script>
      <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="../public/vendor/jquery-3.0.0.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-    
+
 
   </head>
 
@@ -40,15 +41,15 @@
   <div>
     <div class="col-lg-18">
       <div class="content">
-        <form class="formSignin">
-          
+        <form method="POST" action="/login" class="formSignin">
+
             <div class="form-group col-md-5">
               <label for="inputEmail4">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Email">
+              <input name="email" type="email" class="form-control" id="email" placeholder="Email">
             </div>
             <div class="form-group col-md-5">
               <label for="inputPassword4">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Password">
+              <input name="password" type="password" class="form-control" id="password" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-primary" value="login"> <i class="fa fa-user" aria-hidden="true"></i> Sign in</button>
         </form>
@@ -73,7 +74,7 @@
         <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
       </form>
 
-    </div> <!-- /container --> 
+    </div> <!-- /container -->
 
 
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->

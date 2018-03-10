@@ -1,9 +1,10 @@
 "use strict";
 
-const express = require('express');
-const router  = express.Router();
+const bcrypt = require('bcrypt');
+const cookieSession = require('cookie-session');
+const bodyParser = require("body-parser");
 
-module.exports = (knex) => {
+module.exports = (router, knex) => {
 
 //SETS A FOLLOW RECORD
 router.post("/:category" , (req, res) => {

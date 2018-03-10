@@ -1,9 +1,10 @@
 "use strict";
 
-const express = require('express');
-const router  = express.Router();
+const bcrypt = require('bcrypt');
+const cookieSession = require('cookie-session');
+const bodyParser = require("body-parser");
 
-module.exports = (knex) => {
+module.exports = (router, knex) => {
 
   //POSTS NEW ARTICLE COMMENT
   router.post("/articles/:article_id/comments", (req, res) => {
@@ -13,9 +14,9 @@ module.exports = (knex) => {
                  rating: req.body.rating
                }
 
-    if(rating)  {
-      data.rating ++
-    }
+    //if(rating)  {
+    //  data.rating ++
+    //}
 
     knex('comments')
         .insert(data)

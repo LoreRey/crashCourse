@@ -1,53 +1,51 @@
 "use strict";
 
-const express = require('express');
-const router  = express.Router();
 const bcrypt = require('bcrypt');
 const cookieSession = require('cookie-session');
 const bodyParser = require("body-parser");
 
 
-module.exports = (knex) => {
+module.exports = (router, knex) => {
 
   //GET USER
-  router.get("/", (req, res) => {
-    knex.select('user_id', 'first_name')
-        .from('users')
-        // .where('id', req.session.user)
-        .then((result) => {
-          res.json(result)
-        });
-  });
+  // router.get("/", (req, res) => {
+  //   knex.select('user_id', 'first_name')
+  //       .from('users')
+  //       // .where('id', req.session.user)
+  //       .then((result) => {
+  //         res.json(result)
+  //       });
+  // });
 
 
+//LOGIN
+router.get("/login", (req, res) => {
+  res.render("login")
+});
 
 
-  //LOGIN
-  router.post("/login", (req, res) => {
-    let reqEmail = req.body.email
-    let reqPass = req.body.password
+router.post("/login", (req, res) => {
 
-    if(!reqEmail || !reqPass) {
+    console.log(req.body)
+    if(!req.body.email || !req.body.password) {
       res.status(403).send('Must enter a valid username and password')
     }
 
     knex('users')
-        .select('id', 'first_name', 'password')
-        .where({'email' : reqEmail})
+        .select('user_id', 'first_name', 'password')
+        .where('email', req.body.email)
         .then(function(result) {
 
-     if(!result || !result[0]) {
-        res.status(404).send('User not found.')
-      }
-
-     if(bcrypt.compareSync(reqPass, result[0].password)) {
-        req.session.user = result[0].id
-        req.session.name = result[0].name
-        res.status(200).redirect("/articles")
-      } else {
-        res.status(401).send('Not authorized')
-      }
-   });
+           if(!result || !result[0]) {
+              res.status(404).send('User not found.')
+           } else if(req.body.password === result[0].password) {
+              req.session.user = result[0].user_id
+              console.log(req.session)
+              res.redirect("/Main")
+           } else {
+              res.status(401).send('Not authorized')
+            }
+        });
   });
 
 
@@ -112,7 +110,5 @@ module.exports = (knex) => {
         });
   });
 
-
-
- return router;
+  return router;
 };

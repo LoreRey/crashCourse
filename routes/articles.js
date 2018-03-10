@@ -1,12 +1,10 @@
-"use strict";
+  "use strict";
 
-const express = require('express');
-const router  = express.Router();
 const bcrypt = require('bcrypt');
 const cookieSession = require('cookie-session');
 const bodyParser = require("body-parser");
 
-module.exports = (knex) => {
+module.exports = (router, knex) => {
 
 
   //SEE ALL AVAILABLE ARTICLES
@@ -27,7 +25,7 @@ module.exports = (knex) => {
     let artTitle = req.body.artTitle;
     let artDescription = req.body.cardDescription;
     let artCategory = req.body.Category;
-    // let artUserId = req.session.userId;
+    let artUserId = req.session.user_id;
 
     knex('articles')
         .insert({url: artURL,
@@ -43,13 +41,13 @@ module.exports = (knex) => {
 
 
   //UPDATE ARTICLE DETAILS
-  router.get("/articles/:article_id", (req, res) => {
+  router.post("/articles/:article_id", (req, res) => {
     let article_id = req.params.article_id;
     let artURL = req.body.cardURL;
     let artTitle = req.body.artTitle;
     let artDescription = req.body.cardDescription;
     let artCategory = req.body.artCategory;
-    let artUserId = req.session.userId;
+    let artUserId = req.session.user_id;
 
     knex('articles')
         .where({id: article_id})
@@ -62,6 +60,35 @@ module.exports = (knex) => {
         res.json(results);
        });
   });
+
+
+  router.get("/:article_id",(req,res) =>{
+   let article_id = req.params.article_id;
+   let templateVars ={};
+
+    knex('articles')
+    // .innerJoin("comments", "articles.article_id", "comments.article")
+    .where({article_id :article_id})
+    .select('*')
+    .then ((result) => {
+        //console.log(result);
+       templateVars.article = result[0];
+       knex("comments")
+         .select("*")
+         .where("article", templateVars.article.article_id)
+         .then((result) => {
+           // console.log(result)
+           templateVars.comments = [];
+           for (let comment of result) {
+             // console.log(comment)
+             templateVars.comments.push(comment);
+
+           }
+           console.log(templateVars);
+           res.render("article", templateVars);
+         });
+    });
+});
 
   //RENDER ARTICLES BY CATEGORY
   router.get("/:category" , (req, res) => {
