@@ -49,14 +49,21 @@ module.exports = (knex) => {
           .where('user_id', req.session.user)
           .then((result) => {
             templateVars.user = result[0];
-            console.log(templateVars);
+            // console.log(templateVars);
       });
 
     knex.select('*')
-        .from('follows')
-        .where('user_id', req.session.user)
-        .andWhere('category_id', req.params.category)
+        .from('articles')
+        .where('category', req.params.category)
+        .innerJoin("categories", "category", "category_id")
         .then((results) => {
+          // console.log(results)
+          templateVars.articles = [];
+          for (let article of results) {
+            // console.log(article)
+            templateVars.articles.push(article);
+          }
+          console.log(templateVars)
           res.render('category', templateVars);
         });
     }

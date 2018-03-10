@@ -17,12 +17,18 @@
 
     <!-- Main Content -->
       <div class="page-header">
-       <h1>Category Name</h1>
+       <h1><%= articles[0].cat_name%></h1>
     </div>
 
 
     <div class = 'container'>
-
+      <% for (article of articles) {%>
+        <div class = 'col-lg-4 col-sm-6'>
+          <div class = "thumbnail">
+            <a href="/articles/<%= article.article_id%>" ><img src="<%= article.image%>"></a>
+          </div>
+        </div>
+      <% }%>
 
     </div>
 
