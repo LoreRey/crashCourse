@@ -34,7 +34,7 @@ module.exports = (knex) => {
                 title: artTitle,
                 description: artDescription,
                 category: artCategory,
-                // user_id: artUserId
+                user_id: artUserId
               })
         .then((results) => {
         res.json(results);
@@ -42,37 +42,38 @@ module.exports = (knex) => {
   });
 
 
-  //UPDATE ARTICLE DETAILS
-  router.get("/articles/:article_id", (req, res) => {
-    let article_id = req.params.article_id;
-    let artURL = req.body.cardURL;
-    let artTitle = req.body.artTitle;
-    let artDescription = req.body.cardDescription;
-    let artCategory = req.body.artCategory;
-    let artUserId = req.session.userId;
+  // //UPDATE ARTICLE DETAILS
+  // router.get("/articles/:article_id", (req, res) => {
+  //   let article_id = req.params.article_id;
+  //   let artURL = req.body.cardURL;
+  //   let artTitle = req.body.artTitle;
+  //   let artDescription = req.body.cardDescription;
+  //   let artCategory = req.body.artCategory;
+  //   let artUserId = req.session.userId;
 
-    knex('articles')
-        .where({id: article_id})
-        .update({url: artURL,
-                title: artTitle,
-                description: artDescription,
-                category_id: artCategory,
-                user_id: artUserId})
-        .then((results) => {
-        res.json(results);
-       });
-  });
+  //   knex('articles')
+  //       .where({id: article_id})
+  //       .update({url: artURL,
+  //               title: artTitle,
+  //               description: artDescription,
+  //               category_id: artCategory,
+  //               user_id: artUserId})
+  //       .then((results) => {
+  //       res.json(results);
+  //      });
+  // });
 
   //RENDER ARTICLES BY CATEGORY
-  router.get("/:category" , (req, res) => {
-    knex.select('*')
-        .from('articles')
-        .where('category', req.params.category)
-        .orderBy('created_at', 'desc')
-        .then((results) => {
-          res.json(results);
-        });
-  });
+  // router.get("/:category" , (req, res) => {
+  //   knex.select('*')
+  //       .from('articles')
+  //       .where('category', req.params.category)
+  //       //.orderBy('created_at', 'desc')
+  //       .then((results) => {
+  //         res.json(results);
+  //       });
+  // });
+
 
   //DELETE ARTICLE
   router.delete("/:article_id", (req, res) => {

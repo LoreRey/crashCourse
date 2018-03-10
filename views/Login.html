@@ -29,10 +29,10 @@
  <body>
       <!-- Navbar -->
     <nav class="navbar navbar-inverse bg-dark ">
-      <a class="navbar-brand" href="#"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
+      <a class="navbar-brand" href="http://localhost:8080/home"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
       <div class="navRight">
         <ul class="navbar-nav mr-auto">
-          <li><a href="#about"> Register <i class="fa fa-user-plus"></i></a></li>
+          <li><a href="http://localhost:8080/register"> Register <i class="fa fa-user-plus"></i></a></li>
         </ul>
       </div>
     </nav>
@@ -41,15 +41,14 @@
   <div>
     <div class="col-lg-18">
       <div class="content">
-        <form class="formSignin">
-          
+        <form class="formSignin" method="POST" action="/login">
             <div class="form-group col-md-5">
               <label for="inputEmail4">Email</label>
-              <input type="email" class="form-control" id="email" placeholder="Email">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Email">
             </div>
             <div class="form-group col-md-5">
               <label for="inputPassword4">Password</label>
-              <input type="password" class="form-control" id="password" placeholder="Password">
+              <input type="password" class="form-control" name="password" id="password" placeholder="Password">
             </div>
             <button type="submit" class="btn btn-primary" value="login"> <i class="fa fa-user" aria-hidden="true"></i> Sign in</button>
         </form>
@@ -58,26 +57,6 @@
   </div>
 </div>
 
-
-
-
-<!--     <div class="container">
-
-      <form class="formSignin">
-        <h2 class="form-signin-heading">Please sign in</h2>
-        <label for="inputEmail" class="sr-only">Email address</label>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
-        <div class="checkbox">
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-
-    </div> <!-- /container --> 
-
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
 
   </body>
   </html>

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Crash Course</title>
+       <% include ./partials/Head %>
+      <link rel="stylesheet" type="text/css" href="../styles/article.css">
+
+ </head>
+
+
+ <body>
+    <!-- Navbar -->
+      <nav class="navbar navbar-inverse bg-dark ">
+      <a class="navbar-brand" href="#"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
+
+
+        <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-book fa-fw"></i></button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Science</a>
+          <a class="dropdown-item" href="#">Math</a>
+          <a class="dropdown-item" href="#">Technology</a>
+          <a class="dropdown-item" href="#">History</a>
+          </div>
+        </div>
+
+
+      <div class="navRight ">
+          <a href="#about"> User <i class="far fa-user-circle"></i></a>
+          <a href="#about"> Logout <i class="fas fa-sign-out-alt"></i></a>
+      </div>
+
+
+
+
+    </nav>
+
+
+        <!-- Article -->
+        <div class="article">
+
+            <article>
+                <h1> <%= article.title %> </h1>
+                <h1> <%= article.contributor %> </h1>
+                <img  src="<%=article.image%>"> </img>
+
+              <footer>
+                    <div id="bottomRight">
+                      <span id='clickableAwesomeFont'><i class="fas fa-thumbs-up"></i>
+                    </div>
+                    <div>
+                      <a href="<%=article.url%>"> <%=article.url%></a>
+                    </div>
+                    <div id="bottomLeft">
+                        <button class = "commentButton">Add Comment</button>
+
+                    </div>
+              </footer>
+                  <form id="composeComment" method ="POST" action="/articles/1/comments">
+                  <div id="textBox">
+                    <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
+                  </div>
+            </article>
+
+        </div>
+ </body>

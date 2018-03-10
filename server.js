@@ -14,6 +14,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require("cookie-session");
+const bcrypt = require('bcrypt');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -55,9 +56,23 @@ app.get("/register", (req, res) => {
   res.render("Register");
 });
 
-app.get("/articles/:article_id", (req, res) => {
-  res.render("article")
-})
+app.get("/articles/:article_id",(req,res) =>{
+    let article_id = req.params.article_id;
+    let templateVar ={};
+
+     knex('articles')
+     .where({article_id :article_id})
+     .select('*')
+     .then ((result) => {
+         //console.log(result);
+        templateVar.article = result[0];
+        let title = templateVar.title;
+        console.log(title);
+        console.log('blah', templateVar);
+
+        res.render("article", templateVar);
+     });
+});
 
 app.get("/main", (req, res) => {
   let templateVars = {};
