@@ -85,6 +85,10 @@ app.get("/register", (req, res) => {
 //         // console.log('blah', templateVars);
 //      });
 // });
+// app.get("/", (req, res) => {
+//   res.render("main")
+// })
+
 
 app.get("/main", (req, res) => {
   let templateVars = {};
@@ -98,7 +102,9 @@ app.get("/main", (req, res) => {
           res.render("Main", templateVars);
     });
 
-    }
+  } else {
+    res.redirect("/login")
+  }
 });
 
 //LOGIN
@@ -109,29 +115,36 @@ app.get("/login", (req, res) => {
   //LOGIN
 app.post("/login", (req, res) => {
 
- console.log(req.body)
- if(!req.body.email || !req.body.password) {
-   res.status(403).send('Must enter a valid username and password')
- }
+  console.log(req.body)
+  if(!req.body.email || !req.body.password) {
+    res.status(403).send('Must enter a valid username and password')
+  }
 
-  console.log("hi)")
+  // console.log("hi)")
   knex('users')
-     .select('email', 'first_name', 'password')
-     .where('email', req.body.email)
-     .then(function(result) {
+    .select('email', 'user_id', 'first_name', 'password')
+    .where('email', req.body.email)
+    .then(function(result) {
+          // console.log("hi2")
 
-        if(!result || !result[0]) {
-           res.status(404).send('User not found.')
-        } else if(req.body.password === result[0].password) {
-           req.session.user = result[0].user_id
-           console.log(req.session)
-           res.redirect("/main")
-        } else {
-           res.status(401).send('Not authorized')
-        }
+      if(!result || !result[0]) {
+        res.status(404).send('User not found.')
+      } else if(req.body.password === result[0].password) {
+        req.session.user = result[0].user_id
+        // console.log(req.session)
+        res.redirect("/main")
+      } else {
+        res.status(401).send('Not authorized')
+      }
  });
 });
 
+//LOGOUT
+app.get("/logout", (req, res) => {
+  req.session = null;
+  console.log("Logout successful.");
+  res.redirect("login");
+});
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

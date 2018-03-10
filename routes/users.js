@@ -51,12 +51,12 @@ router.get("/login", (req, res) => {
  });
 
 
-  //LOGOUT
-  router.post("/logout", (req, res) => {
-    req.session.destroy();
-    console.log("Logout successful.");
-    res.redirect("/");
-  });
+  // //LOGOUT
+  // router.post("/logout", (req, res) => {
+  //   req.session.destroy();
+  //   console.log("Logout successful.");
+  //   res.redirect("/");
+  // });
 
 
   //GET TO REGISTRATION PAGE
