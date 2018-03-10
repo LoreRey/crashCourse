@@ -40,8 +40,27 @@ app.use("/api/users", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
-  res.render("Register");
+  res.render("article");
 });
+
+app.get("/articles/:article_id",(req,res) =>{
+	let article_id = req.params.article_id
+	let templateVar ={}
+
+	 knex('articles')
+	 .where({article_id :article_id})
+	 .select('*')
+	 .then ((result) => {
+	 	//console.log(result);
+	  templateVar.article = result[0];
+	 let title = templateVar.title;
+	 console.log(title); 	  
+    console.log('blah', templateVar);
+	
+  res.render("article", templateVar)
+	 })
+
+})
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
