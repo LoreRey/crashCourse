@@ -21,6 +21,7 @@ const usersRoutes = require("./routes/users");
 const articlesRoutes = require("./routes/articles");
 const likeRoutes = require("./routes/likes");
 const commentRoutes = require("./routes/comments");
+const categoryRoutes = require("./routes/catg_follows");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -51,6 +52,7 @@ app.use("/users", usersRoutes(knex));
 app.use("/articles", articlesRoutes(knex));
 app.use("/likes", likeRoutes(knex));
 app.use("/comments", commentRoutes(knex));
+app.use("/categories", categoryRoutes(knex));
 
 // Home page
 app.get("/register", (req, res) => {

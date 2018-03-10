@@ -12,13 +12,21 @@ router.get("/:article_id",(req,res) =>{
     let article_id = req.params.article_id;
     let templateVars ={};
 
-     knex('articles')
+    knex.select('user_id', 'first_name')
+        .from('users')
+        .where('user_id', req.session.user)
+        .then((result) => {
+          templateVars.user = result[0];
+    });
+
+    knex('articles')
      .innerJoin("users", "articles.contributor", "users.user_id")
      .where({article_id :article_id})
      .select('*')
      .then ((result) => {
-         //console.log(result);
+         console.log(result);
         templateVars.article = result[0];
+        // templateVars.user = result[0]
         knex("comments")
           .select("*")
           .where("article", templateVars.article.article_id)
