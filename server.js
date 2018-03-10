@@ -13,9 +13,13 @@ const knexConfig  = require("./knexfile");
 const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
+const cookieSession = require("cookie-session");
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
+const articlesRoutes = require("./routes/articles");
+const likeRoutes = require("./routes/likes");
+const commentRoutes = require("./routes/comments");
 
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -35,32 +39,55 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
+app.use(cookieSession({
+  name: "user_id",
+  secret: "fdafasfdas"
+}));
+
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+app.use("/users", usersRoutes(knex));
+app.use("/articles", articlesRoutes(knex));
+app.use("/likes", likeRoutes(knex));
+app.use("/comments", commentRoutes(knex));
 
 // Home page
-app.get("/", (req, res) => {
-  res.render("article");
+app.get("/register", (req, res) => {
+  res.render("Register");
 });
 
 app.get("/articles/:article_id",(req,res) =>{
-	let article_id = req.params.article_id
-	let templateVar ={}
+    let article_id = req.params.article_id
+    let templateVar ={}
 
-	 knex('articles')
-	 .where({article_id :article_id})
-	 .select('*')
-	 .then ((result) => {
-	 	//console.log(result);
-	  templateVar.article = result[0];
-	 let title = templateVar.title;
-	 console.log(title); 	  
-    console.log('blah', templateVar);
-	
-  res.render("article", templateVar)
-	 })
+     knex('articles')
+     .where({article_id :article_id})
+     .select('*')
+     .then ((result) => {
+         //console.log(result);
+      templateVar.article = result[0];
+     let title = templateVar.title;
+     console.log(title);
+   console.log('blah', templateVar);
 
+ res.render("article", templateVar)
+     })
 })
+
+app.get("/main", (req, res) => {
+  let templateVars = {};
+  if (req.session.user) {
+    knex.select('user_id', 'first_name')
+        .from('users')
+        .where('user_id', req.session.user)
+        .then((result) => {
+          templateVars.user = result[0];
+          console.log(templateVars);
+          res.render("Main", templateVars);
+    });
+
+    }
+});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);

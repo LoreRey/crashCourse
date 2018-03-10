@@ -43,12 +43,12 @@
         </div>
             
 
-<form>
+<form method="POST" action="/articles">
 <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header text-center">
-                <h4 class="modal-title w-100 font-weight-bold">Create Resource</h4>
+                <h4 class="modal-title w-100 font-weight-bold">Create Article</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -67,27 +67,27 @@
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="biology">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
                   <label class="form-check-label" for="inlineRadio1">Biology</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="computer">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
                   <label class="form-check-label" for="inlineRadio2">Computer Science</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="math">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
                   <label class="form-check-label" for="inlineRadio3">Math</label>
                 </div>
 
                 <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="physics">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
                   <label class="form-check-label" for="inlineRadio3">Physics</label>
                 </div>
 
                  <div class="form-check form-check-inline">
-                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="languages">
+                  <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio5" value="5">
                   <label class="form-check-label" for="inlineRadio3">Languages</label>
                 </div>
 
@@ -112,8 +112,9 @@
 </div>
       
       <div class="navRight ">     
-          <a href="#about"> User <i class="far fa-user-circle"></i></a>
-          <a href="#about"> Logout <i class="fas fa-sign-out-alt"></i></a>        
+          <a href="#about"> User <%=user.first_name %> <i class="far fa-user-circle"></i></a>
+          <a href="#about"> Logout <i class="fas fa-sign-out-alt"></i></a> 
+
       </div>
 
 
@@ -124,7 +125,7 @@
 
     <!-- Main Content -->
     <div class = 'container'>
-      <div class= "row">
+      <!-- <div class= "row">
         <div class = "col-lg-4 col-sm-6 ">
           <div class = "thumbnail">
             <img src="https://images.unsplash.com/photo-1475529502150-61a9d3bb0061?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=7f9a7e26756685063a70f1e6e7498fc8&auto=format&fit=crop&w=967&q=80">
@@ -181,7 +182,7 @@
             <img src=  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?ixlib=rb-0.3.5&s=bbd3f4a55de814f1b93b80669674cc17&auto=format&fit=crop&w=1950&q=80">
           </div>
         </div>
-       </div>
+       </div> -->
     
     </div>  
  
