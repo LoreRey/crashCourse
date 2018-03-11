@@ -22,5 +22,54 @@
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="../scripts/ImageResolver.js" type="text/javascript"></script>
+
+  <script>
+    // HTTP Request to other domain are blocked
+    // We need a CORS proxy
+    function proxify( request ) {
+        request.url = "http://www.inertie.org/ba-simple-proxy.php?mode=native&url=" + encodeURIComponent( request.url );
+        return request;
+    }
+
+    // Create an instance of ImageResolver
+    // The proxy function is passed as an option
+    var resolver = new ImageResolver( { requestPlugin : proxify } );
+
+    // Register plugins we want to use
+    // You can use the built-in plugin, or create your own
+    // Plugins will be called in the order of their registration
+    resolver.register(new ImageResolver.FileExtension());
+    resolver.register(new ImageResolver.NineGag());
+    resolver.register(new ImageResolver.Instagram());
+    resolver.register(new ImageResolver.ImgurPage());
+
+    resolver.register(new ImageResolver.MimeType());
+    resolver.register(new ImageResolver.Flickr( '6a4f9b6d16c0eaced089c91a2e7e87ad' ));
+    resolver.register(new ImageResolver.Opengraph());
+    resolver.register(new ImageResolver.Webpage());
+
+    $(function(){
+        $('#getImage').on('click', function(e){
+            e.preventDefault();
+            $("#form29").addClass('loading');
+            var url = $('#form29').val();
+
+            resolver.resolve( url, function( result ){
+              //  console.log( result );
+                if ( result ) {
 
 
+                    $('#newImage').attr('src', `${result.image}`);
+                    $('#imageUrl').val(`${result.image}`)
+                    console.log(result.image);
+                } else {
+                    alert('Can not find image');
+                }
+                $("#form29").removeClass('loading');
+            });
+
+        });
+
+    });
+    </script>

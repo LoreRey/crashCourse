@@ -63,8 +63,9 @@ router.get("/:article_id",(req,res) =>{
     let artURL = req.body.url;
     let artTitle = req.body.title;
     let artDescription = req.body.text;
-    let artCategory = req.body.category;
+    let artCategory = req.body.inlineRadioOptions;
     let artUserId = req.session.user;
+    let artImage = req.body.imageUrl;
 
     knex('articles')
         .increment('article_id', 1)
@@ -73,9 +74,11 @@ router.get("/:article_id",(req,res) =>{
                 description: artDescription,
                 category: artCategory,
                 contributor: artUserId,
+                image: artImage
               })
         .then((results) => {
-          res.json(results);
+          res.redirect("main")
+          // res.json(results);
          });
 
         // .then((results) => {
