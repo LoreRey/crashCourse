@@ -39,7 +39,12 @@ $('.commentButton').click(function(){
   }
  });
 
-
-
+// $('.clickableAwesomeFont').click(function(e) {
+//     e.preventDefault();
+//     $.ajax({
+//       method: "POST",
+//       url: "/likes/
+//     })
+// }
 
 });

@@ -15,8 +15,7 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require("cookie-session");
 
-
-// Seperated Routes for each Resource
+// Separated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const articlesRoutes = require("./routes/articles");
 const likeRoutes = require("./routes/likes");
@@ -91,39 +90,33 @@ app.get("/articles/:article_id",(req,res) =>{
      });
 });
 app.get("/", (req, res) => {
-  res.render("main")
+  res.redirect("/main")
 })
 
 
 app.get("/main", (req, res) => {
-  let templateVars = {};
-  if (req.session.user) {
-    knex.select('user_id', 'first_name')
-        .from('users')
-        .where('user_id', req.session.user)
-        .then((result) => {
-          templateVars.user = result[0];
-          // console.log(templateVars);
-          knex.select('*')
-                .from('articles')
-                // .where('category', req.params.category)
-                // .innerJoin("categories", "category", "category_id")
-                .orderBy("created_at", "desc")
-                .then((results) => {
-                  // console.log(results)
-                  templateVars.articles = [];
-                  for (let article of results) {
-                    // console.log(article)
-                    templateVars.articles.push(article);
-                  }
-                  // console.log(templateVars)
-                  res.render("Main", templateVars);
-                });
-    });
+ let templateVars = {};
+ if (req.session.user) {
+   knex.select('user_id', 'first_name')
+       .from('users')
+       .where('user_id', req.session.user)
+       .then((result) => {
+         templateVars.user = result[0];
+         knex.select('*')
+               .from('articles')
+               .orderBy("created_at", "desc")
+               .then((results) => {
+                 templateVars.articles = [];
+                 for (let article of results) {
+                   templateVars.articles.push(article);
+                 }
+                 res.render("Main", templateVars);
+               });
+   });
 
-  } else {
-    res.redirect("/login")
-  }
+ } else {
+   res.redirect("/login")
+ }
 });
 
 //LOGIN

@@ -25,7 +25,7 @@ router.get("/:article_id",(req,res) =>{
      .select('*')
      .orderBy("created_at", "desc")
      .then ((result) => {
-         console.log(result);
+         // console.log(result);
         templateVars.article = result[0];
         // templateVars.user = result[0]
         knex("comments")
@@ -40,7 +40,7 @@ router.get("/:article_id",(req,res) =>{
               templateVars.comments.push(comment);
 
             }
-            console.log(templateVars);
+            // console.log(templateVars);
             res.render("article", templateVars);
           });
 

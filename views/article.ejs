@@ -21,20 +21,24 @@
 
               <footer>
                     <div id="bottomRight">
-                      <span id='clickableAwesomeFont'><i class="fas fa-thumbs-up"></i>
-                    </div>
+                      <form id="likeComment" method="POST" action="/likes/<%=article.article_id%>">
+                     <button id="clickableAwesomeFont" type="submit"><i class="fas fa-thumbs-up"></i>
+                   </form>
+                   </div>
                     <div>
                       <a href="<%=article.url%>"> <%=article.url%></a>
                     </div>
                     <div id="bottomLeft">
-                        <button class = "commentButton">Add Comment</button>
+                      <button class = "commentButton">Add Comment</button>
 
                     </div>
               </footer>
-                  <form id="composeComment" method ="POST" action="/articles/1/comments">
-                  <div id="textBox">
-                    <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
-                  </div>
+                 <form id="composeComment" method ="POST" action="/comments/<%=article.article_id%>">
+                 <div id="textBox">
+                   <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
+                 </div>
+                 <button type="submit" id="submitComment">b</button>
+               </form>
             </article>
 
         </div>
@@ -43,7 +47,5 @@
             <p><%= comment.comment_text%></p>
           <% }%>
         </div>
-
-
  </body>
 </html>
