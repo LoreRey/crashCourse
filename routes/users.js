@@ -106,7 +106,7 @@ router.get("/login", (req, res) => {
   router.get("/profile", (req, res) => {
     knex.select('first_name', 'last_name', 'email', 'username')
         .from('users')
-        .where({id: req.session.user_id})
+        .where({user_id: req.session.user})
         .then((results) => {
           res.render("profile");
         });

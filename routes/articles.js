@@ -60,22 +60,27 @@ router.get("/:article_id",(req,res) =>{
 
   //CREATE A NEW ARTICLE
   router.post("/", (req, res) => {
-    let artURL = req.body.cardURL;
-    let artTitle = req.body.artTitle;
-    let artDescription = req.body.cardDescription;
-    let artCategory = req.body.Category;
-    // let artUserId = req.session.userId;
+    let artURL = req.body.url;
+    let artTitle = req.body.title;
+    let artDescription = req.body.text;
+    let artCategory = req.body.category;
+    let artUserId = req.session.user;
 
     knex('articles')
+        .increment('article_id', 1)
         .insert({url: artURL,
                 title: artTitle,
                 description: artDescription,
                 category: artCategory,
-                user_id: artUserId
+                contributor: artUserId,
               })
         .then((results) => {
-        res.json(results);
-        });
+          res.json(results);
+         });
+
+        // .then((results) => {
+        // res.json(results);
+        // });
   });
 
 
