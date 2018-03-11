@@ -65,7 +65,7 @@ router.get("/:article_id",(req,res) =>{
     let artDescription = req.body.text;
     let artCategory = req.body.inlineRadioOptions;
     let artUserId = req.session.user;
-    let artImage = req.body.imageUrl;
+    let artImage = req.body.image;
 
     knex('articles')
         .increment('article_id', 1)
