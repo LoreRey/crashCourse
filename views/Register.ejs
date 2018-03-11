@@ -16,11 +16,11 @@
     <!-- Input local css file -->
     <link rel="stylesheet" type="text/css" href="../styles/register.css">
 
+    <script type="text/javascript" src="../public/vendor/jquery-3.0.0.js"></script>
     <!-- Optional JavaScript & Local Jquery -->
      <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script type="text/javascript" src="../public/vendor/jquery-3.0.0.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
@@ -56,10 +56,6 @@
               <input name="password" type="password" class="form-control" id="password" placeholder="Password">
             </div>
           </div>
-          <div class="form-group col-md-5">
-              <label for="inputEmail4">Username</label>
-              <input name="username" type="text" class="form-control" id="username" placeholder="Username">
-            </div>
 
           <div class="form-row">
             <div class="form-group col-md-5">
@@ -71,19 +67,18 @@
               <input name="last_name" type="text" class="form-control" id="lastName" placeholder="Last Name">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary" value="register"> <i class="fa fa-user-plus" aria-hidden="true"></i>Sign Up</button>
+           <div class="form-row">
+          <div class="form-group col-md-5">
+              <label for="inputEmail4">Username</label>
+              <input name="username" type="text" class="form-control" id="username" placeholder="Username">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary" value="register"> <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</button>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-
-
-
-
-
-
   </body>
 </html>
 
