@@ -14,7 +14,7 @@ const knex        = require("knex")(knexConfig[ENV]);
 const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require("cookie-session");
-const bcrypt = require('bcrypt');
+
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -59,37 +59,40 @@ app.get("/register", (req, res) => {
   res.render("Register");
 });
 
-// app.get("/articles/:article_id",(req,res) =>{
-//     let article_id = req.params.article_id;
-//     let templateVars ={};
+app.get("/image",(req,res)=>{
+  res.render("Image");
+})
+app.get("/articles/:article_id",(req,res) =>{
+    let article_id = req.params.article_id;
+    let templateVars ={};
 
-//      knex('articles')
-//      // .innerJoin("comments", "articles.article_id", "comments.article")
-//      .where({article_id :article_id})
-//      .select('*')
-//      .then ((result) => {
-//          //console.log(result);
-//         templateVars.article = result[0];
-//         knex("comments")
-//           .select("*")
-//           .where("article", templateVars.article.article_id)
-//           .then((result) => {
-//             templateVars.comments = [];
-//             for (let comment of result) {
-//               templateVars.comments.push();
-//               console.log(templateVars);
+     knex('articles')
+     // .innerJoin("comments", "articles.article_id", "comments.article")
+     .where({article_id :article_id})
+     .select('*')
+     .then ((result) => {
+         //console.log(result);
+        templateVars.article = result[0];
+        knex("comments")
+          .select("*")
+          .where("article", templateVars.article.article_id)
+          .then((result) => {
+            templateVars.comments = [];
+            for (let comment of result) {
+              templateVars.comments.push();
+              console.log(templateVars);
 
-//         res.render("article", templateVars);
-//             }
-//           });
-//         // let title = templateVars.title;
-//         // console.log(title);
-//         // console.log('blah', templateVars);
-//      });
-// });
-// app.get("/", (req, res) => {
-//   res.render("main")
-// })
+        res.render("article", templateVars);
+            }
+          });
+        // let title = templateVars.title;
+        // console.log(title);
+        // console.log('blah', templateVars);
+     });
+});
+app.get("/", (req, res) => {
+  res.render("main")
+})
 
 
 app.get("/main", (req, res) => {

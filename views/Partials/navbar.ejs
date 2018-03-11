@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse bg-dark ">
   <a class="navbar-brand" href="/main"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
   <div class="dropdown">
@@ -10,9 +11,9 @@
       <a class="dropdown-item" href="/categories/5" value="4">Languages</a>
     </div>
   </div>
-  <form method="POST" action="/articles">
     <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
+          <form method="POST" action="/articles">
             <div class="modal-content">
                 <div class="modal-header text-center">
                     <h4 class="modal-title w-100 font-weight-bold">Create Article</h4>
@@ -31,7 +32,11 @@
                         <i class="fa fa-envelope prefix grey-text"></i>
                         <input type="text" id="form29" class="form-control validate" name="url">
                         <label data-error="wrong" data-success="right" for="form29">URL</label>
+                        <button id = "getImage" type="submit"> Get Image </button>
                     </div>
+
+
+                   
 
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="1">
@@ -40,17 +45,17 @@
 
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="2">
-                      <label class="form-check-label" for="inlineRadio2">Computer Science</label>
+                      <label class="form-check-label" for="inlineRadio2">Math</label>
                     </div>
 
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="3">
-                      <label class="form-check-label" for="inlineRadio3">Math</label>
+                      <label class="form-check-label" for="inlineRadio3">Physics</label>
                     </div>
 
                     <div class="form-check form-check-inline">
                       <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="4">
-                      <label class="form-check-label" for="inlineRadio3">Physics</label>
+                      <label class="form-check-label" for="inlineRadio3">Computer Science</label>
                     </div>
 
                      <div class="form-check form-check-inline">
@@ -69,9 +74,9 @@
                     <button type="submit" class="btn btn-unique">Send <i class="fas fa-check"></i></button>
                 </div>
             </div>
+          </form>
         </div>
     </div>
-  </form>
 
   <div class="text-center">
       <a href="" class="btn btn-default btn-rounded mb-4" data-toggle="modal" data-target="#modalContactForm"><i class="fas fa-plus-circle"></i></a>
