@@ -48,20 +48,6 @@ router.get("/:article_id",(req,res) =>{
 });
 
 
-  //SEE ALL AVAILABLE ARTICLES
-  // router.get("/", (req, res) => {
-  //   knex.select("*")
-  //       .from('articles')
-  //       // .orderBy('created_at', 'desc')
-  //       .then((results) => {
-  //         // console.log(results)
-  //         res.json(results);
-  //       });
-
-  //   });
-
-
-
   //CREATE A NEW ARTICLE
   router.post("/", (req, res) => {
     let artURL = req.body.url;
@@ -82,14 +68,8 @@ router.get("/:article_id",(req,res) =>{
               })
         .returning('article_id')
         .then((article_id) => {
-          // console.log(results)
-          res.redirect(`/articles/${article_id}`)
-          // res.json(results);
+          res.redirect(`/articles/${article_id}`);
          });
-
-        // .then((results) => {
-        // res.json(results);
-        // });
   });
 
 
@@ -114,16 +94,6 @@ router.get("/:article_id",(req,res) =>{
   //      });
   // });
 
-  //RENDER ARTICLES BY CATEGORY
-  // router.get("/:category" , (req, res) => {
-  //   knex.select('*')
-  //       .from('articles')
-  //       .where('category', req.params.category)
-  //       //.orderBy('created_at', 'desc')
-  //       .then((results) => {
-  //         res.json(results);
-  //       });
-  // });
 
 
   //DELETE ARTICLE

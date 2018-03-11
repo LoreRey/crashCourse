@@ -91,8 +91,8 @@ app.get("/articles/:article_id",(req,res) =>{
      });
 });
 app.get("/", (req, res) => {
-  res.render("main")
-})
+  res.redirect("/main");
+});
 
 
 app.get("/main", (req, res) => {
@@ -103,20 +103,14 @@ app.get("/main", (req, res) => {
         .where('user_id', req.session.user)
         .then((result) => {
           templateVars.user = result[0];
-          // console.log(templateVars);
           knex.select('*')
                 .from('articles')
-                // .where('category', req.params.category)
-                // .innerJoin("categories", "category", "category_id")
                 .orderBy("created_at", "desc")
                 .then((results) => {
-                  // console.log(results)
                   templateVars.articles = [];
                   for (let article of results) {
-                    // console.log(article)
                     templateVars.articles.push(article);
                   }
-                  // console.log(templateVars)
                   res.render("Main", templateVars);
                 });
     });
@@ -128,15 +122,19 @@ app.get("/main", (req, res) => {
 
 //LOGIN
 app.get("/login", (req, res) => {
- res.render("login")
+  if (req.session.user) {
+    res.redirect("/main");
+  } else {
+    res.render("login")
+  }
 });
 
   //LOGIN
 app.post("/login", (req, res) => {
 
-  console.log(req.body)
+  console.log(req.body);
   if(!req.body.email || !req.body.password) {
-    res.status(403).send('Must enter a valid username and password')
+    res.status(403).send('Must enter a valid username and password');
   }
 
   // console.log("hi)")
@@ -147,13 +145,13 @@ app.post("/login", (req, res) => {
           // console.log("hi2")
 
       if(!result || !result[0]) {
-        res.status(404).send('User not found.')
+        res.status(404).send('User not found.');
       } else if(req.body.password === result[0].password) {
-        req.session.user = result[0].user_id
+        req.session.user = result[0].user_id;
         // console.log(req.session)
-        res.redirect("/main")
+        res.redirect("/main");
       } else {
-        res.status(401).send('Not authorized')
+        res.status(401).send('Not authorized');
       }
  });
 });

@@ -2,48 +2,38 @@
 <html lang="en">
   <head>
        <% include ./partials/Head %>
+  </head>
+  <body>
+    <% include ./partials/navbar %>
+    <!-- Article -->
+    <div class="article">
+        <article>
+            <h1> <%= article.title %> </h1>
+            <h3>Created by: <%= article.username %> </h3>
+            <img  src="<%=article.image%>"> </img>
 
 
- </head>
+                <div id="bottomRight">
+                  <span id='clickableAwesomeFont'><i class="fas fa-thumbs-up"></i>
+                </div>
+                <div>
+                  <a href="<%=article.url%>"> <%=article.url%></a>
+                </div>
+                <div id="bottomLeft">
+                    <button class = "commentButton">Add Comment</button>
+                </div>
 
+              <form id="composeComment" method ="POST" action="/articles/1/comments">
+              <div id="textBox">
+                <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
+              </div>
+        </article>
 
- <body>
-   <% include ./partials/navbar %>
-
-
-        <!-- Article -->
-        <div class="article">
-
-            <article>
-                <h1> <%= article.title %> </h1>
-                <h3>Created by: <%= article.username %> </h3>
-                <img  src="<%=article.image%>"> </img>
-
-              <footer>
-                    <div id="bottomRight">
-                      <span id='clickableAwesomeFont'><i class="fas fa-thumbs-up"></i>
-                    </div>
-                    <div>
-                      <a href="<%=article.url%>"> <%=article.url%></a>
-                    </div>
-                    <div id="bottomLeft">
-                        <button class = "commentButton">Add Comment</button>
-
-                    </div>
-              </footer>
-                  <form id="composeComment" method ="POST" action="/articles/1/comments">
-                  <div id="textBox">
-                    <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
-                  </div>
-            </article>
-
-        </div>
-        <div class="comments">
-          <% for (comment of comments) {%>
-            <p><%= comment.comment_text%></p>
-          <% }%>
-        </div>
-
-
- </body>
+    </div>
+    <div class="comments">
+      <% for (comment of comments) {%>
+        <p><%= comment.comment_text%></p>
+      <% }%>
+    </div>
+  </body>
 </html>
