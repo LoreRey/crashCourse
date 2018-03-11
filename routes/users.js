@@ -94,6 +94,9 @@ router.get("/login", (req, res) => {
     knex('users')
        .insert(newUser)
        .returning(['user_id', 'first_name'])
+       .catch((error) => {
+          res.status(409).render("register", {error: "That username already exists"});
+       })
        .then((result) => {
         req.session.user = result[0].user_id;
         req.session.name = result[0].first_name
