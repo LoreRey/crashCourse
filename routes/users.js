@@ -2,8 +2,8 @@
 
 const express = require('express');
 const router  = express.Router();
-const bcrypt = require('bcrypt');
-//const bcrypt  = require('../bcrypt_stub.js')
+//const bcrypt = require('bcrypt');
+const bcrypt  = require('../bcrypt_stub.js')
 const cookieSession = require('cookie-session');
 const bodyParser = require("body-parser");
 

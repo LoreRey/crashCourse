@@ -22,15 +22,15 @@
     // Register plugins we want to use
     // You can use the built-in plugin, or create your own
     // Plugins will be called in the order of their registration
-    // resolver.register(new ImageResolver.FileExtension());
-    // resolver.register(new ImageResolver.NineGag());
-    // resolver.register(new ImageResolver.Instagram());
-    // resolver.register(new ImageResolver.ImgurPage());
+    resolver.register(new ImageResolver.FileExtension());
+    resolver.register(new ImageResolver.NineGag());
+    resolver.register(new ImageResolver.Instagram());
+    resolver.register(new ImageResolver.ImgurPage());
 
-    // resolver.register(new ImageResolver.MimeType());
-    // resolver.register(new ImageResolver.Flickr( '6a4f9b6d16c0eaced089c91a2e7e87ad' ));
-    // resolver.register(new ImageResolver.Opengraph());
-    // resolver.register(new ImageResolver.Webpage());
+    resolver.register(new ImageResolver.MimeType());
+    resolver.register(new ImageResolver.Flickr( '6a4f9b6d16c0eaced089c91a2e7e87ad' ));
+    resolver.register(new ImageResolver.Opengraph());
+    resolver.register(new ImageResolver.Webpage());
 
     $(function(){
         $('#getImage').on('click', function(e){
@@ -41,7 +41,6 @@
             resolver.resolve( url, function( result ){
               //  console.log( result );
                 if ( result ) {
-
 
                     $('#newImage').attr('src', `${result.image}`);
                     console.log(result.image);
@@ -73,7 +72,9 @@
 
               <footer>
                     <div id="bottomRight">
-                      <span id='clickableAwesomeFont'><i class="fas fa-thumbs-up"></i>
+                       <form id="likeComment" method="POST" action="/likes/<%=article.article_id%>">
+                      <button id="clickableAwesomeFont" type="submit"><i class="fas fa-thumbs-up"></i>
+                    </form>
                     </div>
                     <div>
                       <a href="<%=article.url%>"> <%=article.url%></a>
@@ -83,10 +84,12 @@
 
                     </div>
               </footer>
-                  <form id="composeComment" method ="POST" action="/articles/1/comments">
+                  <form id="composeComment" method ="POST" action="/comments/<%=article.article_id%>">
                   <div id="textBox">
                     <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
                   </div>
+                  <button type="submit" id="submitComment">b</button>
+                </form>
             </article>
 
         </div>

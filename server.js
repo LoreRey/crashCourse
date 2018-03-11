@@ -50,7 +50,7 @@ app.use(cookieSession({
 // Mount all resource routes
 app.use("/users", usersRoutes(knex));
 app.use("/articles", articlesRoutes(knex));
-app.use("/likes", likeRoutes(knex));
+// app.use("/likes", likeRoutes(knex));
 app.use("/comments", commentRoutes(knex));
 app.use("/categories", categoryRoutes(knex));
 
@@ -80,7 +80,7 @@ app.get("/articles/:article_id",(req,res) =>{
             templateVars.comments = [];
             for (let comment of result) {
               templateVars.comments.push();
-              console.log(templateVars);
+              
 
         res.render("article", templateVars);
             }
