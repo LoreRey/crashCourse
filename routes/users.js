@@ -102,17 +102,47 @@ router.get("/login", (req, res) => {
 
 
 
-  //PROFILE PAGE
+  // //PROFILE PAGE
   router.get("/profile", (req, res) => {
-    knex.select('first_name', 'last_name', 'email', 'username')
+  //   let templateVars = {};
+  //   knex.select("*")
+  //       .from('users')
+  //       .where({id: req.session.user})
+  //       .then((results) => {
+  //         templateVars.user = results[0];
+  //         res.render("profile", templateVars);
+  //       });
+  // });
+
+  if (req.session.user) {
+    let templateVars = {};
+    knex.select('*')
         .from('users')
-        .where({id: req.session.user_id})
-        .then((results) => {
-          res.render("profile");
-        });
-  });
+        .where('user_id', req.session.user)
+        .then((result) => {
+          templateVars.user = result[0];
+          // console.log(templateVars);
+          knex.select('*')
+                .from('articles')
+                .where('contributor', req.session.user)
+                // .innerJoin("categories", "category", "category_id")
+                .orderBy("created_at", "desc")
+                .then((results) => {
+                  console.log(results)
+                  templateVars.articles = [];
+                  for (let article of results) {
+                    // console.log(article)
+                    templateVars.articles.push(article);
+                  }
+                  // console.log(templateVars)
+                  res.render("profile", templateVars);
+                });
+    });
 
-
+  } else {
+    res.redirect("/login")
+  }
+})
 
  return router;
 };

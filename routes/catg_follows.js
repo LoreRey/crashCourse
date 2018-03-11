@@ -54,6 +54,7 @@ module.exports = (knex) => {
                 .from('articles')
                 .where('category', req.params.category)
                 .innerJoin("categories", "category", "category_id")
+                .orderBy("created_at", "desc")
                 .then((results) => {
                   // console.log(results)
                   templateVars.articles = [];

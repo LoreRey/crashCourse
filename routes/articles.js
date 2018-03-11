@@ -23,6 +23,7 @@ router.get("/:article_id",(req,res) =>{
      .innerJoin("users", "articles.contributor", "users.user_id")
      .where({article_id :article_id})
      .select('*')
+     .orderBy("created_at", "desc")
      .then ((result) => {
          console.log(result);
         templateVars.article = result[0];
@@ -30,6 +31,7 @@ router.get("/:article_id",(req,res) =>{
         knex("comments")
           .select("*")
           .where("article", templateVars.article.article_id)
+          .orderBy("created_at", "desc")
           .then((result) => {
             // console.log(result)
             templateVars.comments = [];
@@ -47,16 +49,18 @@ router.get("/:article_id",(req,res) =>{
 
 
   //SEE ALL AVAILABLE ARTICLES
-  router.get("/", (req, res) => {
-    knex.select("*")
-        .from('articles')
-        // .orderBy('created_at', 'desc')
-        .then((results) => {
-          // console.log(results)
-          res.json(results);
-        });
+  // router.get("/", (req, res) => {
+  //   knex.select("*")
+  //       .from('articles')
+  //       // .orderBy('created_at', 'desc')
+  //       .then((results) => {
+  //         // console.log(results)
+  //         res.json(results);
+  //       });
 
-    });
+  //   });
+
+
 
   //CREATE A NEW ARTICLE
   router.post("/", (req, res) => {
