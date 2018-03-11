@@ -8,6 +8,31 @@ const bodyParser = require("body-parser");
 
 module.exports = (knex) => {
 
+router.get("/search", (req, res) => {
+  let input = req.query.search;
+  let inputlower = input.toLowerCase();
+  let templateVars = {};
+  templateVars.query = input;
+
+  knex("articles")
+      .select("*")
+      .whereRaw(`lower(title) LIKE '%${inputlower}%'`)
+      .orWhereRaw(`lower(description) LIKE '%${inputlower}%'`)
+      .then((results) => {
+        templateVars.articles = [];
+        for (let article of results) {
+          templateVars.articles.push(article);
+        }
+        knex.select('user_id', 'first_name')
+       .from('users')
+       .where('user_id', req.session.user)
+       .then((results) => {
+         templateVars.user = results[0];
+         res.render("search", templateVars);
+      });
+  });
+});
+
 router.get("/:article_id",(req,res) =>{
     let article_id = req.params.article_id;
     let templateVars ={};
