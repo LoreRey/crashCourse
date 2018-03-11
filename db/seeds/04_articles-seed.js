@@ -56,8 +56,8 @@ exports.seed = function(knex, Promise) {
         knex('articles').insert({article_id: 7,
                                  category: 4,
                                  contributor: 1,
-                                 image: "http://rogerdudler.github.io/git-guide/files/git_cheat_sheet.pdf",
-                                 url: "http://rogerdudler.github.io/git-guide/files/git_cheat_sheet.pdf",
+                                 image: "https://www.git-tower.com/blog/content/posts/54-git-cheat-sheet/git-cheat-sheet-large01.png",
+                                 url: "https://www.git-tower.com/blog/git-cheat-sheet/",
                                  description: "Ever get confused by github or forget what the commands are? Then save this cheat sheet and you'll never have problems again.",
                                  title: "Github Cheat Sheet"
                                }),
