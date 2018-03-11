@@ -36,16 +36,16 @@
     resolver.register(new ImageResolver.Webpage());
 
     $(function(){
-        $('form').on('submit', function(e){
+        $('#getimage').on('click', function(e){
             e.preventDefault();
-            $("#url").addClass('loading');
-            var url = $('#url').val();
+            $("#form29").addClass('loading');
+            var url = $('#form29').val();
 
             resolver.resolve( url, function( result ){
               //  console.log( result );
                 if ( result ) {
 
-                    // $('body').css('background-image', 'url(' + result.image + ')');
+                    $('#newImage').attr('src', `${result.image}`);
                     console.log(result.image);
                 } else {
                     alert('Can not find image');
@@ -83,7 +83,7 @@
         <li><a href="http://dribbble.com/shots/1568411-Pink-smoke">dribbble.com</a></li>
     </ul>
 
-    
+
     <p>
         ImageResolver is javascript library that extracts the main image from an URL.<br>
         <a href="https://github.com/mauricesvay/ImageResolver">More on github</a>

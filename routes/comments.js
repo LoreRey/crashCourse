@@ -14,20 +14,20 @@ module.exports = (knex) => {
                  // rating: req.body.rating
                }
                console.log("hi11",data);
-    // if(rating)  {  
-    //   data.rating ++
-    // }
 
-    knex('comments')
-        .increment('comment_id',1)
-        .insert(data)
-        .returning("likes")
-        .then((likes) => {
-          console.log("hi2")
-          res.redirect(`/articles/${likes}`)
-    })
-         // res.redirect(`/articles/${article_id}`);
-  });
+
+
+   knex('comments')
+       .increment('comment_id',1)
+       .insert(data)
+       .returning("article")
+       .then((article) => {
+         console.log("hi2")
+         res.redirect(`/articles/${article}`)
+   })
+        // res.redirect(`/articles/${article_id}`);
+ });
+
 
   //RENDERS ARTICLE COMMENTS
   // router.get("/articles/:article_id/comments", (req, res) => {

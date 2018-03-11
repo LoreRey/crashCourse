@@ -23,13 +23,15 @@ router.get("/:article_id",(req,res) =>{
      .innerJoin("users", "articles.contributor", "users.user_id")
      .where({article_id :article_id})
      .select('*')
+     .orderBy("created_at", "desc")
      .then ((result) => {
-         console.log(result);
+         // console.log(result);
         templateVars.article = result[0];
         // templateVars.user = result[0]
         knex("comments")
           .select("*")
           .where("article", templateVars.article.article_id)
+          .orderBy("created_at", "desc")
           .then((result) => {
             // console.log(result)
             templateVars.comments = [];
@@ -38,7 +40,7 @@ router.get("/:article_id",(req,res) =>{
               templateVars.comments.push(comment);
 
             }
-            console.log(templateVars);
+            // console.log(templateVars);
             res.render("article", templateVars);
           });
 
@@ -46,36 +48,28 @@ router.get("/:article_id",(req,res) =>{
 });
 
 
-  //SEE ALL AVAILABLE ARTICLES
-  router.get("/", (req, res) => {
-    knex.select("*")
-        .from('articles')
-        // .orderBy('created_at', 'desc')
-        .then((results) => {
-          // console.log(results)
-          res.json(results);
-        });
-
-    });
-
   //CREATE A NEW ARTICLE
   router.post("/", (req, res) => {
-    let artURL = req.body.cardURL;
-    let artTitle = req.body.artTitle;
-    let artDescription = req.body.cardDescription;
-    let artCategory = req.body.Category;
-    // let artUserId = req.session.userId;
+    let artURL = req.body.url;
+    let artTitle = req.body.title;
+    let artDescription = req.body.text;
+    let artCategory = req.body.inlineRadioOptions;
+    let artUserId = req.session.user;
+    let artImage = req.body.image;
 
     knex('articles')
+        .increment('article_id', 1)
         .insert({url: artURL,
                 title: artTitle,
                 description: artDescription,
                 category: artCategory,
-                user_id: artUserId
+                contributor: artUserId,
+                image: artImage
               })
-        .then((results) => {
-        res.json(results);
-        });
+        .returning('article_id')
+        .then((article_id) => {
+          res.redirect(`/articles/${article_id}`);
+         });
   });
 
 
@@ -100,16 +94,6 @@ router.get("/:article_id",(req,res) =>{
   //      });
   // });
 
-  //RENDER ARTICLES BY CATEGORY
-  // router.get("/:category" , (req, res) => {
-  //   knex.select('*')
-  //       .from('articles')
-  //       .where('category', req.params.category)
-  //       //.orderBy('created_at', 'desc')
-  //       .then((results) => {
-  //         res.json(results);
-  //       });
-  // });
 
 
   //DELETE ARTICLE

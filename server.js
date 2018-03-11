@@ -15,8 +15,7 @@ const morgan      = require('morgan');
 const knexLogger  = require('knex-logger');
 const cookieSession = require("cookie-session");
 
-
-// Seperated Routes for each Resource
+// Separated Routes for each Resource
 const usersRoutes = require("./routes/users");
 const articlesRoutes = require("./routes/articles");
 const likeRoutes = require("./routes/likes");
@@ -91,38 +90,50 @@ app.get("/articles/:article_id",(req,res) =>{
      });
 });
 app.get("/", (req, res) => {
-  res.render("main")
+  res.redirect("/main")
 })
 
 
 app.get("/main", (req, res) => {
-  let templateVars = {};
-  if (req.session.user) {
-    knex.select('user_id', 'first_name')
-        .from('users')
-        .where('user_id', req.session.user)
-        .then((result) => {
-          templateVars.user = result[0];
-          console.log(templateVars);
-          res.render("Main", templateVars);
-    });
+ let templateVars = {};
+ if (req.session.user) {
+   knex.select('user_id', 'first_name')
+       .from('users')
+       .where('user_id', req.session.user)
+       .then((result) => {
+         templateVars.user = result[0];
+         knex.select('*')
+               .from('articles')
+               .orderBy("created_at", "desc")
+               .then((results) => {
+                 templateVars.articles = [];
+                 for (let article of results) {
+                   templateVars.articles.push(article);
+                 }
+                 res.render("Main", templateVars);
+               });
+   });
 
-  } else {
-    res.redirect("/login")
-  }
+ } else {
+   res.redirect("/login")
+ }
 });
 
 //LOGIN
 app.get("/login", (req, res) => {
- res.render("login")
+  if (req.session.user) {
+    res.redirect("/main");
+  } else {
+    res.render("login")
+  }
 });
 
   //LOGIN
 app.post("/login", (req, res) => {
 
-  console.log(req.body)
+  console.log(req.body);
   if(!req.body.email || !req.body.password) {
-    res.status(403).send('Must enter a valid username and password')
+    res.status(403).send('Must enter a valid username and password');
   }
 
   // console.log("hi)")
@@ -133,13 +144,13 @@ app.post("/login", (req, res) => {
           // console.log("hi2")
 
       if(!result || !result[0]) {
-        res.status(404).send('User not found.')
+        res.status(404).send('User not found.');
       } else if(req.body.password === result[0].password) {
-        req.session.user = result[0].user_id
+        req.session.user = result[0].user_id;
         // console.log(req.session)
-        res.redirect("/main")
+        res.redirect("/main");
       } else {
-        res.status(401).send('Not authorized')
+        res.status(401).send('Not authorized');
       }
  });
 });
