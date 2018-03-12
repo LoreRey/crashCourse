@@ -97,6 +97,65 @@ module.exports = (knex) => {
        });
   });
 
+  router.get("/:article_id/update", (req, res) => {
+    let article_id = req.params.article_id;
+    let templateVars ={};
+
+      knex.select('user_id', 'first_name')
+          .from('users')
+          .where('user_id', req.session.user)
+          .then((result) => {
+            templateVars.user = result[0];
+
+           knex('articles')
+             .innerJoin("users", "articles.contributor", "users.user_id")
+             .where({article_id :article_id})
+             .select('*')
+             .orderBy("created_at", "desc")
+             .then ((result) => {
+                 // console.log(result);
+                templateVars.article = result[0];
+                // templateVars.user = result[0]
+
+                res.render("update", templateVars);
+             });
+      });
+  });
+
+  router.post("/update", (req, res) => {
+    if (!req.body.image && !req.body.url && !req.body.title && !req.body.description) {
+      res.redirect(`/articles/${req.body.image}/update`);
+    }
+    if (!req.body.url) {
+      req.body.url = undefined;
+    }
+    if (!req.body.title) {
+      req.body.title = undefined;
+    }
+    if (!req.body.description) {
+      req.body.description = undefined;
+    }
+    if (!req.body.image) {
+      req.body.image = undefined;
+    }
+    let artUpdate = {
+             url          : req.body.url,
+             title        : req.body.title,
+             description  : req.body.description,
+             category     : undefined,
+             contributor  : undefined,
+             image        : req.body.image,
+             article_id   : undefined
+    };
+    knex("articles")
+    .where("article_id", req.body.id)
+    .update(artUpdate)
+    .returning("article_id")
+    .then((article_id)=>{
+        res.redirect(`/articles/${article_id}/update`);
+    });
+  });
+
 
   //CREATE A NEW ARTICLE
   router.post("/", (req, res) => {
@@ -120,41 +179,6 @@ module.exports = (knex) => {
         .then((article_id) => {
           res.redirect(`/articles/${article_id}`);
          });
-  });
-
-
-  // //UPDATE ARTICLE DETAILS
-  // router.get("/articles/:article_id", (req, res) => {
-  //   let article_id = req.params.article_id;
-  //   let artURL = req.body.cardURL;
-  //   let artTitle = req.body.artTitle;
-  //   let artDescription = req.body.cardDescription;
-  //   let artCategory = req.body.artCategory;
-  //   let artUserId = req.session.userId;
-
-  //   knex('articles')
-  //       .where({id: article_id})
-  //       .update({url: artURL,
-  //               title: artTitle,
-  //               description: artDescription,
-  //               category_id: artCategory,
-  //               user_id: artUserId})
-  //       .then((results) => {
-  //       res.json(results);
-  //      });
-  // });
-
-
-
-  //DELETE ARTICLE
-  router.delete("/:article_id", (req, res) => {
-    knex.select('*')
-        .from("articles")
-        .where("id", req.params.article_id)
-        .del()
-        .then((results) => {
-         res.json(results);
-        });
   });
 
   return router;

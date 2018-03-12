@@ -16,16 +16,6 @@ module.exports = (knex) => {
     res.render("Register");
   });
 
-// //GET USER
-// router.get("/", (req, res) => {
-//   knex.select('user_id', 'first_name')
-//       .from('users')
-//       // .where('id', req.session.user)
-//       .then((result) => {
-//         res.json(result)
-//       });
-// });
-
 
   //LOGIN
   router.get("/login", (req, res) => {
@@ -39,7 +29,6 @@ module.exports = (knex) => {
   //LOGOUT
   router.get("/logout", (req, res) => {
     req.session = null;
-    // console.log("Logout successful.");
     res.redirect("login");
   });
 
@@ -52,20 +41,15 @@ module.exports = (knex) => {
           .where('user_id', req.session.user)
           .then((result) => {
             templateVars.user = result[0];
-            // console.log(templateVars);
             knex.select('*')
                   .from('articles')
                   .where('contributor', req.session.user)
-                  // .innerJoin("categories", "category", "category_id")
                   .orderBy("created_at", "desc")
                   .then((results) => {
-                    // console.log(results)
                     templateVars.articles = [];
                     for (let article of results) {
-                      // console.log(article)
                       templateVars.articles.push(article);
                     }
-                    // console.log(templateVars)
                     res.render("profile", templateVars);
                   });
       });
@@ -78,7 +62,6 @@ module.exports = (knex) => {
   //LOGIN
   router.post("/login", (req, res) => {
 
-   // console.log(req.body)
    if(!req.body.email || !req.body.password) {
      res.status(403).render("login", {error: 'Must enter a valid username and password'});
    }
@@ -91,7 +74,6 @@ module.exports = (knex) => {
              res.status(404).render("login", {error: 'User not found.'});
           } else if(req.body.password === result[0].password) {
              req.session.user = result[0].user_id
-             // console.log(req.session)
              res.redirect("/articles")
           } else {
              res.status(401).send('Not authorized')

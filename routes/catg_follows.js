@@ -17,29 +17,6 @@ module.exports = (knex) => {
   });
 
 
-
-
-//   //SHOWS CATEGORY FOLLOWS TO USER
-//   router.get("/profile" , (req, res) => {
-//     let templateVars = {};
-//     if (req.session.user) {
-//       knex.select('user_id', 'first_name')
-//           .from('users')
-//           .where('user_id', req.session.user)
-//           .then((result) => {
-//             templateVars.user = result[0];
-//             console.log(templateVars);
-//       });
-// // TODO: PUT AN INNER JOIN TO LINK FOLLOWS TO ARTICLES
-//     knex.select('*')
-//         .from('follows')
-//         .where('user_id', req.session.user)
-//         .then((results) => {
-//           res.render('profile', templateVars);
-//         });
-//     }
-//   });
-
   //SHOWS ARTICLES IN A CATEGORY
   router.get("/:category" , (req, res) => {
     let templateVars = {};
@@ -49,17 +26,14 @@ module.exports = (knex) => {
           .where('user_id', req.session.user)
           .then((result) => {
             templateVars.user = result[0];
-            // console.log(templateVars);
             knex.select('*')
                 .from('articles')
                 .where('category', req.params.category)
                 .innerJoin("categories", "category", "category_id")
                 .orderBy("created_at", "desc")
                 .then((results) => {
-                  // console.log(results)
                   templateVars.articles = [];
                   for (let article of results) {
-                    // console.log(article)
                     templateVars.articles.push(article);
                   }
                   console.log(templateVars)
