@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+       <% include ./partials/Head %>
+      <link rel="stylesheet" type="text/css" href="/styles/article.css">
+  </head>
+
+
+  <body>
+    <% include ./partials/navbar %>
+
+
+        <!-- Article -->
+    <div class="article">
+
+      <article>
+        <form method="POST" action="/articles/update">
+        <h1><input name="title" type="text" placeholder="<%= article.title %>"> </h1>
+        <h3>Created by: <%= article.username %> </h3>
+        <img  src="<%=article.image%>"> </img>
+          <input name="image" type="text"  placeholder="<%=article.image%>">
+          <input name="url" type="text" placeholder="<%=article.url%>">
+          <input name="description" class="description" placeholder="<%=article.description%>">
+          <input name="id" id="id" type="hidden" value="<%=article.article_id%>">
+        <button name="update" type="submit">Update</button>
+        </form>
+      </article>
+
+    </div>
+ </body>
+</html>

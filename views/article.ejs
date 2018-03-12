@@ -2,8 +2,8 @@
 <html lang="en">
   <head>
        <% include ./partials/Head %>
-       <link rel="stylesheet" type="text/css" href="../styles/navbar.css">
-       <link rel="stylesheet" type="text/css" href="../styles/article.css">
+ 
+       <link rel="stylesheet" type="text/css" href="/styles/article.css">
 
  </head>
 
@@ -50,8 +50,10 @@
           <!--       </footer> -->
                <div class="comments">
                  <% for (comment of comments) {%>
+                 <div class="individualComment">
                  <p><%= comment.comment_text%></p>
-                 <span class="commented_by"><%= comment.username%></span>
+                 <span class="commented_by">By: <%= comment.username%></span>
+                 </div>
                   <% }%>
                </div>
 
@@ -59,5 +61,6 @@
 
         </div>
  </body>
+
 
 </html>

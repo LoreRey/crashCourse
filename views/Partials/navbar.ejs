@@ -1,6 +1,7 @@
 
 <nav class="navbar navbar-inverse bg-dark ">
-  <a class="navbar-brand" href="/main"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
+
+  <a class="navbar-brand" href="/"><<i class="fab fa-cuttlefish"></i>rash<<i class="fab fa-cuttlefish"></i>ourse </a>
 
 
  <div id="search">
@@ -16,6 +17,7 @@
 
 
  <!-- Modal Dropdown -->
+
   <div class="dropdown">
     <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-list"></i></button>
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -26,6 +28,12 @@
       <a class="dropdown-item" href="/categories/5" value="4">Languages</a>
     </div>
   </div>
+<!--   <div id="search">
+    <form method="GET" action="/articles/search">
+      <input type="text" name="search" placeholder="Search...">
+      <button type="submit" id="submit">Search</button>
+    </form>
+  </div> -->
     <div class="modal fade" id="modalContactForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <form method="POST" action="/articles">
@@ -38,13 +46,13 @@
                 </div>
                 <div class="modal-body mx-3">
                     <div class="md-form mb-5">
-                        <i class="fa fa-user prefix grey-text"></i>
+                        
                         <input type="text" id="title" class="form-control validate" name="title">
                         <label data-error="wrong" data-success="right" for="form34">Title</label>
                     </div>
 
                     <div class="md-form mb-5">
-                        <i class="fa fa-envelope prefix grey-text"></i>
+                       
                         <input type="text" id="form29" class="form-control validate" name="url">
                         <label data-error="wrong" data-success="right" for="form29">URL</label>
                         <button id ="getImage" class="btn btn-primary" type="submit"> Get Image </button>
@@ -54,7 +62,7 @@
                     </div>
 
                     <div class="md-form mb-5">
-                        <i class="fa fa-user prefix grey-text"></i>
+                       
                         <input type="text" id="imageUrl" class="form-control validate" name="image">
                         <label data-error="wrong" data-success="right" for="form34">Image URL</label>
                     </div>
@@ -107,7 +115,7 @@
 <!-- 
   Username and Logout -->
   <div class="navRight ">
-    <a href="/users/profile"> <%= user.first_name %> <i class="far fa-user-circle"></i></a>
+    <a href="/profile"> <%= user.first_name %> <i class="far fa-user-circle"></i></a>
     <a href="/logout"> Logout <i class="fas fa-sign-out-alt"></i></a>
   </div>
 </nav>

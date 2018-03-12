@@ -32,12 +32,13 @@
 
   <% include ./partials/navbarLogin %>
 
+
 <!-- Register  -->
 <div class="container">
   <div>
     <div class="col-lg-18">
       <div class="content">
-        <form class="formRegister" method="POST" action="/users/register/">
+        <form class="formRegister" method="POST" action="/register">
           <div class="form-row">
             <div class="form-group col-md-5">
               <label for="inputEmail4">Email</label>
@@ -67,6 +68,9 @@
           </div>
           <button type="submit" class="btn btn-primary" value="register"> <i class="fa fa-user-plus" aria-hidden="true"></i> Sign Up</button>
         </form>
+        <% if (typeof error !== "undefined") { %>
+          <p><%= error %></p>
+        <% } %>
       </div>
     </div>
   </div>

@@ -104,3 +104,26 @@ button.btn.btn-primary {
   margin-right: 10px;
 }
 
+div.thumbnail:hover button.update {
+  display: block;
+}
+div.thumbnail button.update {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  background-color: #007bff;
+}
+
+div.thumbnail:hover span.title {
+  display: block;
+  margin-bottom: 50px;
+}
+div.thumbnail span.title {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: lightgrey;
+
+}

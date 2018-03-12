@@ -12,9 +12,7 @@
       <!-- Navbar -->
 
     <% include ./partials/navbarLogin %>
-    <% if (typeof error !== "undefined") { %>
-      <p><%= error %></p>
-    <% } %>
+  
 
     <div class="container">
       <div>
@@ -32,6 +30,9 @@
                 </div>
                 <button type="submit" class="btn btn-primary" value="login"> <i class="fa fa-user" aria-hidden="true"></i> Sign in</button>
             </form>
+            <% if (typeof error !== "undefined") { %>
+              <p><%= error %></p>
+            <% } %>
           </div>
         </div>
       </div>

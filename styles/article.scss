@@ -1,3 +1,4 @@
+
 body  {
   background-color: #e6e6e6;
 
@@ -136,7 +137,7 @@ div.comments{
   border-top: 2px solid;
   border-right-width: 10%;
   border-top-color: black; 
-  text-align: center;
+ /* text-align: center;*/
 
 .comments p{
   text-align: center;
@@ -149,6 +150,21 @@ form#composeComment{
   		border-radius: 4px;
   		width: 300px;
 	}
+}
+
+div.thumbnail:hover button.update {
+  display: block;
+}
+div.thumbnail button.update {
+  display: none;
+  position: absolute;
+  top: 0;
+}
+div.thumbnail button.update {
+  left: 0;
+}
+div.individualComment {
+  border: 1px black solid;
 }
 
 
