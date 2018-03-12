@@ -48,10 +48,11 @@ app.use(cookieSession({
 
 // Mount all resource routes
 app.use("/articles", articlesRoutes(knex));
-app.use("/likes", likeRoutes(knex));
+// app.use("/likes", likeRoutes(knex));
 app.use("/comments", commentRoutes(knex));
 app.use("/categories", categoryRoutes(knex));
 app.use(usersRoutes(knex));
+
 
 app.get("/", (req, res) => {
   res.redirect("/articles")

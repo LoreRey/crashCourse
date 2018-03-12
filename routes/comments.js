@@ -7,12 +7,15 @@ module.exports = (knex) => {
 
   //POSTS NEW ARTICLE COMMENT
   router.post("/:article_id", (req, res) => {
-   let data = { article: req.params.article_id,
-                user_id: req.session.user,
-                comment_text: req.body.newComment
-                // rating: req.body.rating
-              }
-              console.log("hi11",data);
+    console.log("Hi");
+    let data = { article: req.params.article_id,
+                 user_id: req.session.user,
+                 comment_text: req.body.newComment
+                 // rating: req.body.rating
+               }
+               console.log("hi11",data);
+
+
 
    knex('comments')
        .increment('comment_id',1)
@@ -24,6 +27,7 @@ module.exports = (knex) => {
    })
         // res.redirect(`/articles/${article_id}`);
  });
+
 
   //RENDERS ARTICLE COMMENTS
   // router.get("/articles/:article_id/comments", (req, res) => {

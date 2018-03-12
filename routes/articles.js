@@ -78,6 +78,7 @@ module.exports = (knex) => {
           templateVars.article = result[0];
           knex("comments")
             .select("*")
+            .innerJoin("users", "comments.user_id", "users.user_id")
             .where("article", templateVars.article.article_id)
             .orderBy("created_at", "desc")
             .then((result) => {

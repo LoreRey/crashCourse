@@ -2,6 +2,9 @@
 <html lang="en">
   <head>
        <% include ./partials/Head %>
+ 
+       <link rel="stylesheet" type="text/css" href="/styles/article.css">
+
  </head>
 
 
@@ -10,45 +13,55 @@
 
 
         <!-- Article -->
+        
         <div class="article">
 
             <article>
-                <h1> <%= article.title %> </h1>
+                <h2> <%= article.title %> </h2>
                 <h3>Created by: <%= article.username %> </h3>
                 <img  src="<%=article.image%>"> </img>
 
                     <div id="bottomRight">
+
+
                       <form id="likeComment" method="POST" action="/likes/<%=article.article_id%>">
                      <button id="clickableAwesomeFont" type="submit"><i class="fas fa-thumbs-up"></i></button>
                        <button id="clickableAwesomeFont" type="submit"><i class="fas fa-thumbs-down"></i></button>
                        <!--<span id='clickableAwesomeFont'><i class="fas fa-thumbs-up"></i>-->
                    </form>
                    </div>
-                    <div>
+
+                    <div class="link">
                       <a href="<%=article.url%>"> <%=article.url%></a>
                     </div>
                     <div class="description">
                       <p><%=article.description%></p>
                     </div>
-                    <div id="bottomLeft">
+                 <!--    <div id="bottomLeft">
                       <button class = "commentButton">Add Comment</button>
-
-                    </div>
-                 <form id="composeComment" method ="POST" action="/comments/<%=article.article_id%>">
-                 <div id="textBox">
-                   <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
+                    </div> -->
+                      
+              <!-- <footer> -->
+           <!--        <div id="textBox"> -->
+                  <form id="composeComment" method ="POST" action="/comments/<%=article.article_id%>">
+                    <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
+                  <button type="submit" id="submitComment"><i class="fas fa-comments"></i></button>
+                   </form>
+       <!--            </div> -->
+          <!--       </footer> -->
+               <div class="comments">
+                 <% for (comment of comments) {%>
+                 <div class="individualComment">
+                 <p><%= comment.comment_text%></p>
+                 <span class="commented_by">By: <%= comment.username%></span>
                  </div>
-                 <button type="submit" id="submitComment">b</button>
-               </form>
+                  <% }%>
+               </div>
+
             </article>
 
         </div>
-        <div class="comments">
-          <% for (comment of comments) {%>
-            <p><%= comment.comment_text%></p>
-          <% }%>
-        </div>
  </body>
-<input type="hidden" id="hdnSession" data-value="@Request.RequestContext.HttpContext.Session['user']" />
+
 
 </html>

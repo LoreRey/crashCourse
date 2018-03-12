@@ -51,6 +51,19 @@ router.post('/:article_id', (req, res) => {
         //   }
         // })
  });
+router.get('/:article_id/favourites', (req, res) => {
+  knex.select('*')
+      .from('likes')
+      .innerJoin('articles', 'likes.article', 'articles.article_id')
+      .where('likes.user_id', req.session.user)
+      .then((results) => {
+        res.json(results);
+      });
+});
 
-return router
-}
+
+
+
+
+return router;
+};

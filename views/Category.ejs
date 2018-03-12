@@ -3,15 +3,23 @@
   <head>
     <% include ./partials/Head %>
     <!-- Input local css file -->
-    <link rel="stylesheet" type="text/css" href="../styles/main.css">
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+
   </head>
   <body>
+
+
       <!-- Navbar -->
     <% include ./partials/navbar %>
     <!-- Main Content -->
-      <div class="page-header">
-       <h1><%= articles[0].cat_name%></h1>
-    </div>
+    <!--   <div class="page-header">
+       <h1><%= articles[0].cat_name%></h1> -->
+      <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+          <h1 class="display-4"><%= articles[0].cat_name%></h1>
+         </div>
+      </div>
+ <!--    </div> -->
     <div class = 'container'>
       <% for (article of articles) {%>
         <div class = 'col-lg-4 col-sm-6'>

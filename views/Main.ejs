@@ -3,18 +3,22 @@
 <html lang="en">
   <head>
    <% include ./partials/Head %>
+    <link rel="stylesheet" type="text/css" href="/styles/main.css">
+
  </head>
   <body>
    <% include ./partials/navbar %>
 
 
+      <h1>Welcome to Crash Course</h1>
     <!-- Main Content -->
     <div class = 'container'>
       <% for (article of articles) {%>
         <div class = 'col-lg-4 col-sm-6'>
-          <div class = "thumbnail">
+           <div class = "thumbnail"> 
             <a href="/articles/<%= article.article_id%>" ><img src="<%= article.image%>"></a>
-          </div>
+            <span class="title"><%= article.title %></span>
+           </div> 
         </div>
       <% }%>
     </div>
