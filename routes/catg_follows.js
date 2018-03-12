@@ -36,7 +36,6 @@ module.exports = (knex) => {
                   for (let article of results) {
                     templateVars.articles.push(article);
                   }
-                  console.log(templateVars)
                   res.render('category', templateVars);
                 });
       });

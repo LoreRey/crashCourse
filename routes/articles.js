@@ -75,22 +75,17 @@ module.exports = (knex) => {
        .select('*')
        .orderBy("created_at", "desc")
        .then ((result) => {
-           // console.log(result);
           templateVars.article = result[0];
-          // templateVars.user = result[0]
           knex("comments")
             .select("*")
             .where("article", templateVars.article.article_id)
             .orderBy("created_at", "desc")
             .then((result) => {
-              // console.log(result)
               templateVars.comments = [];
               for (let comment of result) {
-                // console.log(comment)
                 templateVars.comments.push(comment);
 
               }
-              // console.log(templateVars);
               res.render("article", templateVars);
             });
 
@@ -113,9 +108,7 @@ module.exports = (knex) => {
              .select('*')
              .orderBy("created_at", "desc")
              .then ((result) => {
-                 // console.log(result);
                 templateVars.article = result[0];
-                // templateVars.user = result[0]
 
                 res.render("update", templateVars);
              });
