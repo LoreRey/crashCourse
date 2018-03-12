@@ -13,6 +13,7 @@
 
 
         <!-- Article -->
+        
         <div class="article">
 
             <article>
@@ -49,8 +50,8 @@
           <!--       </footer> -->
                <div class="comments">
                  <% for (comment of comments) {%>
-                 
                  <p><%= comment.comment_text%></p>
+                 <span class="commented_by"><%= comment.username%></span>
                   <% }%>
                </div>
 

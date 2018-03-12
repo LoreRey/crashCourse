@@ -30,6 +30,7 @@ router.get("/:article_id",(req,res) =>{
         // templateVars.user = result[0]
         knex("comments")
           .select("*")
+          // .innerJoin("users", "articles.contributor", "users.user_id")
           .where("article", templateVars.article.article_id)
           .orderBy("created_at", "desc")
           .then((result) => {

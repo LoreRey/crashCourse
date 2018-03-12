@@ -1,4 +1,28 @@
+body  {
+  background-color: #e6e6e6;
+
+}
+  img {
+  width: 80%;
+  border: transparent;
+  box-shadow: 3px 3px 8px 0px rgba(0, 0, 0, 0.3);
+  margin-top: 1.00%;
+  border-radius: 4%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .article {
+  margin-top: 20px;
+  position: absolute;
+  left: 420px;
+  border-radius: 4%;
+  overflow: hidden;
+  background-color :white;
+  border: 1px transparent;
+  width: 500px;
+
 	h2 {
 		text-align: center;
 	}
@@ -30,9 +54,9 @@ img{
     border:transparent;
     box-shadow: 3px 3px 8px 0px rgba(0,0,0,0.3); 
     margin-top: 1.00%;
-     border-radius: 4%;
-     display: block;
-       margin-left: auto;
+    border-radius: 4%;
+    display: block;
+    margin-left: auto;
     margin-right: auto;
      
 }
@@ -74,3 +98,67 @@ span#clickableAwesomeFont{
     border-radius:5px;
     transition:0.3s background;
 }
+
+
+button#submitComment {
+    position: relative;
+    top: -30px;
+    background:#007bff;
+    border:none;
+    color:white;
+    border-radius:5px;
+    transition:0.3s background;
+    width: 55px;
+    height: 30px;
+button#submitComment:hover {
+   background:#0050ff
+}
+}
+
+
+
+
+div.link {
+  text-align: center;
+}
+.description p {
+  text-align: center;
+}
+
+
+button.commentButton{
+  float: right;
+
+}
+
+
+div.comments{
+  border-top: 2px solid;
+  border-right-width: 10%;
+  border-top-color: black; 
+  text-align: center;
+
+.comments p{
+  text-align: center;
+}
+}
+
+form#composeComment{
+  text-align: center;
+	#textarea{
+  		border-radius: 4px;
+  		width: 300px;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
