@@ -40,7 +40,7 @@ router.get("/:article_id",(req,res) =>{
               templateVars.comments.push(comment);
 
             }
-            // console.log(templateVars);
+             console.log(templateVars.comment);
             res.render("article", templateVars);
           });
 

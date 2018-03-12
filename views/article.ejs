@@ -29,33 +29,33 @@
                    </form>
                    </div>
 
-                    <div>
+                    <div class="link">
                       <a href="<%=article.url%>"> <%=article.url%></a>
                     </div>
                     <div class="description">
                       <p><%=article.description%></p>
                     </div>
-                    <div id="bottomLeft">
+                 <!--    <div id="bottomLeft">
                       <button class = "commentButton">Add Comment</button>
-
-                    </div>
+                    </div> -->
                       
-              </footer>
+              <!-- <footer> -->
+           <!--        <div id="textBox"> -->
                   <form id="composeComment" method ="POST" action="/comments/<%=article.article_id%>">
-                  <div id="textBox">
                     <textarea id = "textarea" name="newComment" placeholder="Add a comment"></textarea>
-                  </div>
-                  <button type="submit" id="submitComment">b</button>
-                </form>
-
+                  <button type="submit" id="submitComment"><i class="fas fa-comments"></i></button>
+                   </form>
+       <!--            </div> -->
+          <!--       </footer> -->
+               <div class="comments">
+                 <% for (comment of comments) {%>
+                 
+                 <p><%= comment.comment_text%></p>
+                  <% }%>
+               </div>
 
             </article>
 
-        </div>
-        <div class="comments">
-          <% for (comment of comments) {%>
-            <p><%= comment.comment_text%></p>
-          <% }%>
         </div>
  </body>
 
