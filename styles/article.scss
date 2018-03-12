@@ -15,15 +15,17 @@ body  {
   margin-right: auto;
 }
 
-.article {
+div.article {
   margin-top: 20px;
   position: absolute;
-  left: 420px;
+  left: 0;
+  right: 0;
   border-radius: 4%;
   overflow: hidden;
   background-color :white;
   border: 1px transparent;
   width: 500px;
+
 
 	h2 {
 		text-align: center;
@@ -66,13 +68,15 @@ img{
 div.article{
 	margin-top: 20px;
 	 position: absolute;
-	 left: 420px;
+	 left: 0;
+   right: 0;
 	 overflow: hidden;
 	 border-color: grey;
-	 border: 1px transparent;
+	 border: 1px solid black;
 	 margin-left: auto;
     margin-right: auto;
 	 width: 500px;
+   margin-bottom: 20px;
 }
 
 .article footer{
@@ -166,7 +170,11 @@ div.thumbnail button.update {
   left: 0;
 }
 div.individualComment {
-  border: 1px black solid;
+  border-top: 1px black solid;
+}
+
+.individualComment span {
+  margin-left: 10px;
 }
 
 

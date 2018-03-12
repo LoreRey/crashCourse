@@ -5,6 +5,7 @@ body {
 
 .container{
 	padding-top: 70px;
+  margin: 20px;
 	 display: flex;
     flex-wrap: wrap;
     align-content: center;
@@ -61,6 +62,7 @@ div.jumbotron.jumbotron-fluid{
   flex-wrap: wrap;
   align-content: center;
   justify-content: space-around;
+  margin: auto;
 }
 
 img {
