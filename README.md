@@ -7,15 +7,18 @@ Crash Course is a web application that allows you to save URLs, and create curat
 
 Welcome page displays all articles ordered by date created.
 
-(link)
+![Welcome page displays all articles ordered by date created.
+](https://github.com/LoreRey/crashCourse/blob/master/docs/CrashCourse%20Main%20Page.png)
 
 You can see articles by category.
 
-(link)
+![You can see articles by category.
+](https://github.com/LoreRey/crashCourse/blob/master/docs/Crash%20Course%20Category%20Search.png)
 
 Built in form lets you take any URL and save as a new resource.
 
-(link)
+![Built in form lets you take any URL and save as a new resource.
+](https://github.com/LoreRey/crashCourse/blob/master/docs/Crash%20Course%20Article%20Creation.png)
 
 ## Dependencies
 
